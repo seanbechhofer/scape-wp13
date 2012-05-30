@@ -1,0 +1,34 @@
+= SCAPE Policy Modelling =
+
+This folder contains materials relating to the Policy Modelling activity in SCAPE WP13, and in particular to the initial model for milestone M60. This is preliminary work, and a lot of the content is synthesised as content will ultimately be provided by other WPs.
+
+== Approach ==
+
+The basic approach is as follows:
+
+* Objectives are described using a simple ontology. Objectives include Format and Representation Instance Objectives which essentially specify a property value pair along with a modality. A description of the objectives covered is in link:ControlPolicies.html[ControlPolicies].
+* Format information is provided by the p2 registry.
+* Content profile information will be provided by content profiling tools. As this is not currently available, mocked up data is used that has been based on existing content profiles.
+
+== Data ==
+
+Relevant files for the prototype/demonstration are:
+
++ontologies/control-policy.owl+:: Simple ontology describing objectives and properties used to specify objectives.
++ontologies/modalities.ttl+:: SKOS vocabulary for modalities (cf RCF2119). 
++ontologies/qualifiers.ttl+:: SKOS vocabulary for qualifiers (equal, greater than etc). 
++data/p2unified.rdf+:: RDF version of P2 registry.
++data/content.ttl+:: *Mocked up* data describing a "content profile". This is hand-rolled based on the XML outputs from content profiling provided by CB and HK. 
++data/objectives.ttl+:: *Mocked up* sample objectives. 
+
+The above are all loaded into a triple store (currently using Jena tdb as it's easy to run locally). Queries can then be posed against this triplestore in order to check or monitor the objectives. There is a sample ruby script in +scripts/runScenario.rb+ that queries the data and then checks the objectives. 
+
+Note that the above datasets use a variety of RDF serializations. Some are in RDF/XML, some in Turtle.
+
+== Queries ==
+
+
+
+
+
+ 

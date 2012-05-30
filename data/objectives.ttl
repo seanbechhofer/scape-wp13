@@ -1,0 +1,62 @@
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct: 	    <http://purl.org/dc/terms/> .
+
+@prefix modalities:        <http://www.scape-project.eu/pw/vocab/modalities#> .
+@prefix control:        <http://www.scape-project.eu/pw/vocab/control-policy#> .
+@prefix domain:        <http://www.scape-project.eu/pw/vocab/domain#> .
+@prefix pronom:        <http://pronom.nationalarchives.gov.uk/#> .
+
+@prefix scape:        <http://www.example.com/scape#> .
+
+# Formats must be binary 
+scape:formatObjectiveMustBeBinary
+  a control:FormatObjective;
+  control:property pronom:BinaryFileFormat;
+  control:value "Binary";
+  control:modality modalities:MUST.	       
+
+# Formats should be text
+scape:formatObjectiveShouldBeText
+  a control:FormatObjective;
+  control:property pronom:BinaryFileFormat;
+  control:value "Text";
+  control:modality modalities:SHOULD.	       
+
+# Formats should have full disclosure
+scape:formatObjectiveShouldBeFullDisclosure
+  a control:FormatObjective;
+  control:property pronom:FormatDisclosure;
+  control:value "Full";
+  control:modality modalities:SHOULD.	       
+
+# Formats must not have full disclosure
+scape:formatObjectiveMustNotBeFullDisclosure
+  a control:FormatObjective;
+  control:property pronom:FormatDisclosure;
+  control:value "Full";
+  control:modality modalities:MUST_NOT.	       
+
+# Formats must be standardised by ISO
+scape:repObjective1
+  a control:RepresentationInstanceObjective;
+  control:property domain:standardisation;
+  control:value domain:ISO;
+  control:modality modalities:MUST.
+
+# Formats should be standardised by W3C
+scape:repObjective2 
+  a control:RepresentationInstanceObjective;
+  control:property domain:standardisation;
+  control:value domain:W3C;
+  control:modality modalities:SHOULD.
+
+scape:actionObjective1
+  a control:ActionObjective;
+  control:property domain:licensing;
+  control:value domain:openSource;
+  control:modality modalities:MUST.	       
+
+

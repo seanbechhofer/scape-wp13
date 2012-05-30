@@ -1,0 +1,50 @@
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct: 	    <http://purl.org/dc/terms/> .
+
+@prefix modalities:        <http://www.scape-project.eu/pw/vocab/modalities#> .
+@prefix control:        <http://www.scape-project.eu/pw/vocab/control-policy#> .
+@prefix domain:        <http://www.scape-project.eu/pw/vocab/domain#> .
+@prefix pronom:        <http://pronom.nationalarchives.gov.uk/#> .
+
+@prefix scape:        <http://www.example.com/scape#> .
+
+# content collection musik should meet objective formatObjective1
+
+scape:musikScenarioBinary
+  a domain:Scenario;
+  control:objective scape:formatObjectiveMustBeBinary; 
+  control:content scape:musik;		 
+  .
+
+scape:musikScenarioText
+  a domain:Scenario;
+  control:objective scape:formatObjectiveShouldBeText;
+  control:content scape:musik;		 
+  .
+
+scape:musikScenarioDisclosure
+  a domain:Scenario;
+  control:objective scape:formatObjectiveShouldBeFullDisclosure; 
+  control:content scape:musik;		 
+  .
+
+scape:dummyScenarioBinary
+  a domain:Scenario;
+  control:objective scape:formatObjectiveMustBeBinary; 
+  control:content scape:dummy;		 
+  .
+
+scape:dummyScenarioDisclosure
+  a domain:Scenario;
+  control:objective scape:formatObjectiveMustNotBeFullDisclosure; 
+  control:content scape:dummy;		 
+  .
+
+scape:driverScenarioDisclosure
+  a domain:Scenario;
+  control:objective scape:formatObjectiveShouldBeFullDisclosure; 
+  control:content scape:driver;		 
+  .

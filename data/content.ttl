@@ -1,0 +1,112 @@
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct: 	    <http://purl.org/dc/terms/> .
+
+@prefix modalities:        <http://www.scape-project.eu/pw/vocab/modalities#> .
+@prefix control:        <http://www.scape-project.eu/pw/vocab/control-policy#> .
+@prefix domain:        <http://www.scape-project.eu/pw/vocab/domain#> .
+@prefix scape:        <http://www.example.com/scape#> .
+
+
+# Mocked up description of a content profile
+
+scape:andy a domain:ContentSet.
+scape:andy domain:formatUsage 
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/18>;
+	        domain:count "21"].
+scape:andy domain:formatUsage 
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/19>;
+	      	domain:count "9" ].
+scape:andy domain:formatUsage 
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/17>;
+	      	domain:count "9" ].
+scape:andy domain:formatUsage 
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/43>;
+	      	domain:count "8" ].
+scape:andy domain:formatUsage
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/124>;
+	        domain:count "6"].
+scape:andy domain:formatUsage
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/x-fmt/263>;
+	        domain:count "6"].
+scape:andy domain:formatUsage
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/x-fmt/111>;
+	        domain:count "4"].
+scape:andy domain:formatUsage
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/x-fmt/18>;
+	        domain:count "4"].
+scape:andy domain:formatUsage
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/116>;
+	        domain:count "2"].
+scape:andy domain:formatUsage
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/44>;
+	        domain:count "1"].
+scape:andy domain:formatUsage
+	      [domain:format <http://nationalarchives.gov.uk/pronom/Identifier//fmt/146>;
+	        domain:count "1"].
+scape:andy domain:formatUsage
+	      [domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/9>;
+	       domain:count "1"]. 
+scape:andy domain:formatUsage 
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/8>;
+	      	domain:count "1"].      
+scape:andy domain:formatUsage
+	      [ domain:format  <http://nationalarchives.gov.uk/pronom/Identifier/fmt/12>;
+	       domain:count "1"]. 
+scape:andy domain:formatUsage
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/158>;
+	        domain:count "1"].
+scape:andy domain:formatUsage
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/145>;
+	        domain:count "1"].
+scape:andy domain:formatUsage
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/157>;
+	        domain:count "1"].
+scape:andy domain:formatUsage
+	      [domain:format  <http://nationalarchives.gov.uk/pronom/Identifier/fmt/144>;
+	        domain:count "1"].
+scape:andy domain:formatUsage
+	      [domain:format  <http://nationalarchives.gov.uk/pronom/Identifier/fmt/148>;
+	       domain:count "1"]. 
+scape:andy domain:formatUsage 
+	      [domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/147>;
+	       domain:count "1"]. 
+scape:andy domain:formatUsage
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/10>;
+	        domain:count "1"].
+scape:andy domain:formatUsage
+	      [ domain:format  <http://nationalarchives.gov.uk/pronom/Identifier/fmt/7>;
+	        domain:count "1"].
+
+#####################################################
+
+scape:musik a domain:ContentSet.
+scape:musik domain:formatUsage 
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/134>;
+	        domain:count "142"].
+scape:musik domain:formatUsage 
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/43>;
+	      	domain:count "3" ].
+
+#####################################################
+
+scape:driver a domain:ContentSet.
+scape:driver domain:formatUsage 
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/6>;
+	        domain:count "6"].
+scape:driver domain:formatUsage 
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/116>;
+	      	domain:count "2" ].
+
+#####################################################
+
+scape:dummy a domain:ContentSet.
+scape:dummy domain:formatUsage 
+	      [ domain:format <http://nationalarchives.gov.uk/pronom/Identifier/fmt/15>;
+	        domain:count "6"].
+
+
+
+
