@@ -43,20 +43,20 @@ scape:formatObjectiveMustNotBeFullDisclosure
 scape:repObjective1
   a control:RepresentationInstanceObjective;
   control:property domain:standardisation;
-  control:value domain:ISO;
+  control:value "ISO";
   control:modality modalities:MUST.
 
 # Formats should be standardised by W3C
 scape:repObjective2 
   a control:RepresentationInstanceObjective;
   control:property domain:standardisation;
-  control:value domain:W3C;
+  control:value "W3C";
   control:modality modalities:SHOULD.
 
 scape:actionObjective1
   a control:ActionObjective;
   control:property domain:licensing;
-  control:value domain:openSource;
+  control:value "Open Source";
   control:modality modalities:MUST.	       
 
 

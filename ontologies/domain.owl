@@ -66,6 +66,11 @@
         <rdfs:comment>Relates a Content Set to information about format usage.</rdfs:comment>
     </owl:ObjectProperty>
     
+    <!-- http://www.scape-project.eu/pw/vocab/domain#hasUserCommunity -->
+
+    <owl:ObjectProperty rdf:about="http://www.scape-project.eu/pw/vocab/domain#hasUserCommunity">
+        <rdfs:comment>Relates a Scenario to a User Community.</rdfs:comment>
+    </owl:ObjectProperty>
 
 
     <!-- 
@@ -95,22 +100,25 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
-
 
     <!-- http://www.scape-project.eu/pw/vocab/domain#ContentSet -->
 
     <owl:Class rdf:about="http://www.scape-project.eu/pw/vocab/domain#ContentSet">
         <rdfs:comment>A Content Set</rdfs:comment>
     </owl:Class>
-    
-
 
     <!-- http://www.scape-project.eu/pw/vocab/domain#Scenario -->
 
     <owl:Class rdf:about="http://www.scape-project.eu/pw/vocab/domain#Scenario">
         <rdfs:comment>A Scenario</rdfs:comment>
     </owl:Class>
+
+    <!-- http://www.scape-project.eu/pw/vocab/domain#UserCommunity -->
+
+    <owl:Class rdf:about="http://www.scape-project.eu/pw/vocab/domain#UserCommunity">
+        <rdfs:comment>A User Community</rdfs:comment>
+    </owl:Class>
+
 </rdf:RDF>
 
 
