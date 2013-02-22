@@ -1,0 +1,17 @@
+h2 "Measure Selected"
+
+p do
+  span "Category: "
+  span categoryLabel 
+  span category 
+end
+p do
+  span "Attribute: "
+  span attributeLabel 
+  span attribute 
+end
+p do
+  span "Measure: "
+  span measureLabel 
+  span measure 
+end

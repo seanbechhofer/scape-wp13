@@ -1,0 +1,13 @@
+h2 "Criterion Categories"
+
+div do
+  form :action => "category" do 
+    select :name=> "category" do
+      categories.each do |category|
+        option category[:label], :value => category[:category].to_s
+      end
+    end
+    input :type => "submit", :value => "Go!"
+  end
+end
+

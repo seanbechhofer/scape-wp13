@@ -1,0 +1,62 @@
+h2 "Scenario"
+p do 
+  span scenario.to_s
+end
+
+h3 "Content Set and User Community"
+
+results.each do |result|
+  table.scenario do
+    tr do
+      td.content "Content Set:" 
+      td do
+        a result[:content].to_s, :href => "/content-set/" + URI.escape(result[:content].to_s, ":/")
+      end
+    end
+    tr do
+      td.users "User Community:"
+      td result[:users].to_s
+    end
+  end
+end
+
+h3 "Objectives"
+
+objectives.each do |objective|
+  div.objective do
+    p {a objective[:objective], :href => "/objective/" + URI.escape(objective[:objective].to_s,"/:")}
+
+    table.objective do
+      thead do
+        th "Attribute", :style => "text-align:left;width:50%" 
+        th "Value", :style => "text-align:left;width:50%" 
+      end
+      tr do
+        td "Type"
+        td objective[:type].to_s
+      end
+      tr do
+        td "Property"
+        td objective[:property].to_s
+      end
+      tr do
+        td "Modality"
+        td objective[:modality].to_s
+      end
+      tr do
+        td "Qualifier"
+        td objective[:qualifier].to_s
+      end
+      tr do
+        td "Value"
+        td objective[:value].to_s
+      end
+      tr do
+        td "Scope"
+        td do
+          a objective[:scope].to_s, :href => "/content-set/" + URI.escape(objective[:scope].to_s,"/:")
+        end
+      end
+    end # table
+  end
+end

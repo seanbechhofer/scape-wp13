@@ -1,0 +1,62 @@
+div do
+  p "This application provide a simple front end for browsing SCAPE control policies and the elements used in those policies."
+end
+
+
+h2 "Scenarios"
+
+div do
+  ul do |ul|
+    scenarios.each do |scenario|
+      ul.li {
+#        span scenario[:scenario]
+#        span scenario[:scope]
+#        span scenario[:users]
+        a scenario[:scenario], :href => "/scenario/" + URI.escape(scenario[:scenario].to_s, "/:")
+      }
+    end
+  end
+
+end
+
+h2 "Organisations"
+
+div do
+  ul do |ul|
+    organizations.each do |organization|
+      ul.li {
+        a organization[:organization] + " (" + organization[:identifier] + ")", :href => "/organization/" + URI.escape(organization[:organization].to_s, "/:")
+      }
+    end
+  end
+
+end
+
+h2 "Measures Used"
+
+div do
+  ul do |ul|
+    measures.each do |measure|
+      ul.li {
+        span measure[:label].to_s
+        
+        a measure[:measure].to_s, :href => "/measure/" + URI.escape(measure[:measure].to_s, "/:")
+#        span measure[:measure].to_s
+      }
+    end
+  end
+end
+
+h2 "Objectives"
+
+div do
+  ul do |ul|
+    objectives.each do |objective|
+      ul.li {
+        span objective[:label].to_s
+        
+        a objective[:objective].to_s, :href => "/objective/" + URI.escape(objective[:objective].to_s, "/:")
+      }
+    end
+  end
+end

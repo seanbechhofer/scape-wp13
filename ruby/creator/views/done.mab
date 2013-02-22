@@ -1,0 +1,26 @@
+h2 "Selection"
+
+p do
+  span "Category: " + categoryLabel 
+  span category 
+end
+p do
+  span "Attribute: " + attributeLabel 
+  span attribute 
+end
+p do
+  span "Measure: " + measureLabel 
+  span measure
+end
+p do
+  span "Scale: " + scaleLabel
+  span scale
+end
+p do
+  span "Modality: " + modalityLabel
+  span modality
+end
+p do
+  span "Value: " + value
+end
+

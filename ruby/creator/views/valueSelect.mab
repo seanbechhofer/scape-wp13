@@ -1,0 +1,40 @@
+h2 "Value"
+
+p do
+  span "Category: " + categoryLabel 
+  span category 
+end
+p do
+  span "Attribute: " + attributeLabel 
+  span attribute 
+end
+p do
+  span "Measure: " + measureLabel 
+  span measure
+end
+p do
+  span "Modality: " + modalityLabel 
+  span modality
+end
+p do
+  span "Scale: " + scale[0][:label].to_s
+  span scale[0][:scale].to_s 
+end
+
+# div do
+#   form :action => "value" do 
+#     input :type => "hidden", :name => "category", :value => category
+#     input :type => "hidden", :name => "attribute", :value => attribute
+#     input :type => "hidden", :name => "measure", :value => measure
+#     input :type => "hidden", :name => "modality", :value => modality
+#     input :type => "hidden", :name => "scale", :value => scale[0]
+
+#     select :name=> "value" do
+#       values[0] do |value|
+#         option value[:label].to_s, :value => modality[:modality].to_s
+#       end
+#     end
+#     input :type => "submit", :value => "Go!"
+#   end
+# end
+

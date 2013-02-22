@@ -1,0 +1,25 @@
+h2 "Measures"
+
+p do
+  span "Category: " + categoryLabel 
+  span category 
+end
+p do
+  span "Attribute: " + attributeLabel 
+  span attribute
+end
+
+div do
+  form :action => "measure" do 
+    input :type => "hidden", :name => "category", :value => category
+    input :type => "hidden", :name => "attribute", :value => attribute
+
+    select :name=> "measure" do
+      measures.each do |measure|
+        option measure[:label].to_s, :value => measure[:measure].to_s
+      end
+    end
+    input :type => "submit", :value => "Go!"
+  end
+end
+

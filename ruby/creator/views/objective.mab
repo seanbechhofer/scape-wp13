@@ -1,0 +1,46 @@
+h2 "Objective"
+p do 
+  a objective.to_s, :href => "/objective/" + URI.escape(objective.to_s,"/:")
+end
+
+h3 "Details"
+
+details.each do |detail|
+  div.objective do
+    table.objective do
+      tr do
+        td "Type"
+        td detail[:type].to_s
+      end
+      tr do
+        td "Property"
+        td do
+          if detail[:property].nil? then
+            lab = detail[:prop].to_s
+          else
+            lab = detail[:property].to_s
+          end
+          a lab, :href => "/measure/" + URI.escape(detail[:prop].to_s, ":/")
+        end
+      end
+      tr do
+        td "Modality"
+        td detail[:modality].to_s
+      end
+      tr do
+        td "Qualifier"
+        td detail[:qualifier].to_s
+      end
+      tr do
+        td "Value"
+        td detail[:value].to_s
+      end
+      tr do
+        td "Scope"
+        td do
+          a detail[:scope].to_s, :href => "/content-set/" + URI.escape(detail[:scope].to_s,"/:")
+        end
+      end
+    end # table
+  end
+end

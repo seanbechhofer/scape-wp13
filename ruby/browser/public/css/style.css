@@ -1,0 +1,77 @@
+/* SCAPE Colours 
+29  130 164
+68  159 189
+95  174 200
+141 198 221
+157 213 232
+0   0   0
+197 230 241
+*/
+
+body {font-family: Calibri;
+  padding: 10px;
+  margin: 10px;
+  background: rgb(157,213,232);
+}
+#content {
+  background: #fff;
+  padding: 10px;
+  border: outset rgb(29,130,164) 5px;
+}
+#logo {
+  width: 200px;
+/*  border: 1px solid; */
+}
+#head {
+  text-align: center;
+}
+#footer {
+  text-align: center;
+}
+.search input {
+  margin-left: 20px;  
+}
+.navigation li {
+  list-style-type: none;
+  display: inline;
+  padding-right: 10px;
+}
+#player {
+  float: right;
+}
+.banner {font-size: 300%; margin-bottom:10px; text-align: center;}
+dt {font-weight: bold;}
+a {
+  text-decoration: none;
+  color: rgb(29,130,164);
+}
+.content, .users {
+    font-weight: bold;
+}
+div.scenario {
+    background: #ddd;
+    margin: 1em;
+    padding: 0.1em;
+}
+div.objective {
+    margin: 1em;
+    padding: 0.1em;
+}
+li.objective {
+}
+p.objective {
+    color: #448;
+}
+table.objective {
+    width: 50%;
+    background: rgb(197,230,241);
+}
+table{
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid gray;
+}
+td, th {
+    padding: 0.4em;
+}

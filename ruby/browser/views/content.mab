@@ -1,0 +1,21 @@
+h2 "Content Set"
+p do 
+  a content.to_s, :href => '/content-set/' + URI.escape(content.to_s, ":/")
+end
+
+h3 "Contains"
+
+subcontent.each do |sub|
+  p do
+    a sub[:subcontent].to_s, :href => '/content-set/' + URI.escape(sub[:subcontent].to_s, ":/")
+  end
+end
+
+h3 "Organization"
+
+
+organization.each do |org|
+  p do 
+    a org[:organization].to_s, :href => '/organization/' + URI.escape(org[:organization].to_s, ":/")
+  end
+end

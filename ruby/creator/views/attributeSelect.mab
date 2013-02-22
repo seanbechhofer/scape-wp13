@@ -1,0 +1,19 @@
+h2 "Attributes"
+
+p do
+  "Category: " + categoryLabel + " (" + category + ")"
+end
+
+div do
+  form :action => "attribute" do 
+    input :type => "hidden", :name => "category", :value => category
+    input :type => "hidden", :name => "categoryLabel", :value => categoryLabel
+    select :name=> "attribute" do
+      attributes.each do |attribute|
+        option attribute[:label], :value => attribute[:attribute].to_s
+      end
+    end
+    input :type => "submit", :value => "Go!"
+  end
+end
+

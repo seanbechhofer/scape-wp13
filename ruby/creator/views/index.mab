@@ -1,0 +1,12 @@
+h2 "Criterion Categories"
+
+div do
+  ul do |ul|
+    categories.each do |category|
+      ul.li {
+        category[:category].to_s + " " + category[:label].to_s
+      }
+    end
+  end
+end
+

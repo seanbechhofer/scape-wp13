@@ -1,0 +1,18 @@
+h2 "Organization"
+p do 
+  ids = ""
+  identifiers.each do |identifier|
+    ids = ids + " (" + identifier[:identifier].to_s + ")"
+  end
+ span organization.to_s + ids 
+end
+
+h3 "Objectives"
+
+ul do |ul|
+  objectives.each do |objective|
+    ul.li do
+      a objective[:objective], :href => "/objective/" + URI.escape(objective[:objective].to_s,"/:")
+    end
+  end
+end
