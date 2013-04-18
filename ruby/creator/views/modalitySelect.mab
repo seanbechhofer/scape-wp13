@@ -1,4 +1,4 @@
-h2 "Modality"
+h2 "Details"
 
 p do
   span "Category: " + categoryLabel 
@@ -23,14 +23,30 @@ div do
     input :type => "hidden", :name => "attribute", :value => attribute
     input :type => "hidden", :name => "measure", :value => measure
     input :type => "hidden", :name => "scale", :value => scale[0][:scale]
-    
-    select :name=> "modality" do
-      modalities.each do |modality|
-        option modality[:label].to_s, :value => modality[:modality].to_s
+    p do 
+      select :name=> "modality" do
+        modalities.each do |modality|
+          option modality[:label].to_s, :value => modality[:modality].to_s
       end
+      end
+      select :name=> "qualifier" do
+        qualifiers.each do |qualifier|
+          option qualifier[:label].to_s, :value => qualifier[:qual].to_s
+        end
+      end
+      input :type => "text", :name => "value", :size => "40"
     end
-    input :type => "text", :name => "value", :size => "40"
-    input :type => "submit", :value => "Go!"
+    p do 
+      select :name=> "type" do
+        objectives.each do |objective|
+          option objective[:label].to_s, :value => objective[:objective].to_s
+        end
+      end
+      
+      span.label "Name:"
+      input :type => "text", :name => "name", :size => "40"  
+      input.button :type => "submit", :value => "Go!"
+    end
   end
 end
 

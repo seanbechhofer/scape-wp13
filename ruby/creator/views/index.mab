@@ -1,3 +1,7 @@
+div do
+  p "This application provides a simple front end for creating SCAPE control policies/objectives"
+end
+
 h2 "Criterion Categories"
 
 div do

@@ -3,28 +3,31 @@ h2 do
 end
 
 p do 
-  a measure.to_s, :href => "/measure/" + URI.escape(measure.to_s,":/")
+  a measure.to_s, :href => "/measure/" + URI.escape(measure.to_s,"/:#")
 end
 
 details.each do |detail|
-  div.objective do
-    table.objective do
-      tr do
-        td "Description"
-        td detail[:description].to_s
+  table do
+    tr do
+      td "Description"
+      td detail[:description].to_s
+    end
+    tr do
+      td "Criterion Category"
+      td do
+        a detail[:categorylabel].to_s, :href => "/criterioncategory/" + URI.escape(detail[:category].to_s,"/:#")
       end
-      tr do
-        td "Attribute"
-        td detail[:attlabel].to_s
+    end
+    tr do
+      td "Attribute"
+      td do
+        a detail[:attributelabel].to_s, :href => "/attribute/" + URI.escape(detail[:attribute].to_s,"/:#")
+        span.emph "(" +  detail[:attributedescription].to_s + ")"
       end
-      tr do
-        td "Attribute Description"
-        td detail[:attdescription].to_s
-      end
-      tr do
-        td "Scale"
-        td detail[:scale].to_s
-      end
-    end # table
-  end
+    end
+    tr do
+      td "Scale"
+      td detail[:scale].to_s
+    end
+  end # table
 end

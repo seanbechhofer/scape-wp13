@@ -54,7 +54,7 @@ div.scenario {
     padding: 0.1em;
 }
 div.objective {
-    margin: 1em;
+/*     margin: 1em; */
     padding: 0.1em;
 }
 li.objective {
@@ -62,9 +62,16 @@ li.objective {
 p.objective {
     color: #448;
 }
-table.objective {
-    width: 50%;
+table {
     background: rgb(197,230,241);
+}
+th {
+    background: rgb(29,130,164);
+    color: rgb(157,213,232);
+    text-align: left;
+}
+table.objective {
+    width: 80%;
 }
 table{
     border-collapse: collapse;
@@ -74,4 +81,7 @@ table, th, td {
 }
 td, th {
     padding: 0.4em;
+}
+.emph {
+    font-style: italic;
 }

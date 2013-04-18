@@ -3,16 +3,16 @@ div do
 end
 
 
-h2 "Scenarios"
+h2 "PreservationCases"
 
 div do
   ul do |ul|
-    scenarios.each do |scenario|
+    preservationCases.each do |preservationCase|
       ul.li {
-#        span scenario[:scenario]
-#        span scenario[:scope]
-#        span scenario[:users]
-        a scenario[:scenario], :href => "/scenario/" + URI.escape(scenario[:scenario].to_s, "/:")
+#        span preservationCase[:preservationCase]
+#        span preservationCase[:scope]
+#        span preservationCase[:users]
+        a preservationCase[:preservationCase], :href => "/preservationCase/" + URI.escape(preservationCase[:preservationCase].to_s, "/:")
       }
     end
   end

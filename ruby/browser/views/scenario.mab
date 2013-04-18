@@ -1,16 +1,16 @@
-h2 "Scenario"
+h2 "PreservationCase"
 p do 
-  span scenario.to_s
+  span preservationCase.to_s
 end
 
 h3 "Content Set and User Community"
 
 results.each do |result|
-  table.scenario do
+  table.preservationCase do
     tr do
       td.content "Content Set:" 
       td do
-        a result[:content].to_s, :href => "/content-set/" + URI.escape(result[:content].to_s, ":/")
+        a result[:content].to_s, :href => "/content-set/" + URI.escape(result[:content].to_s, "/:#")
       end
     end
     tr do
@@ -24,7 +24,7 @@ h3 "Objectives"
 
 objectives.each do |objective|
   div.objective do
-    p {a objective[:objective], :href => "/objective/" + URI.escape(objective[:objective].to_s,"/:")}
+    p {a objective[:objective], :href => "/objective/" + URI.escape(objective[:objective].to_s,"/:#")}
 
     table.objective do
       thead do
@@ -37,7 +37,9 @@ objectives.each do |objective|
       end
       tr do
         td "Property"
-        td objective[:property].to_s
+        td do 
+          a objective[:property].to_s, :href => "/measure/" + URI.escape(objective[:prop].to_s,"/:#")
+        end
       end
       tr do
         td "Modality"
@@ -54,7 +56,7 @@ objectives.each do |objective|
       tr do
         td "Scope"
         td do
-          a objective[:scope].to_s, :href => "/content-set/" + URI.escape(objective[:scope].to_s,"/:")
+          a objective[:scope].to_s, :href => "/content-set/" + URI.escape(objective[:scope].to_s,"/:#")
         end
       end
     end # table

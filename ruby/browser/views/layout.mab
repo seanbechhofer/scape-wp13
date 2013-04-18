@@ -6,7 +6,7 @@ xhtml_rdfa do
   body do
     div.content! do
       h1 do
-        a "SCAPE Control Policy Browser", :href => "/"
+        a "SCAPE Control Policies", :href => "/"
       end
 #      div.head! do
 #        a :href => "/" do 

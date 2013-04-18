@@ -1,27 +1,40 @@
-# A simple SKOS vocabulary for qualifiers
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix : <http://purl.org/DP/control-policy#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
-@prefix dct: 	    <http://purl.org/dc/terms/> .
+<http://purl.org/DP/control-policy/qualifiers>
+    a owl:Ontology .
 
-@prefix :        <http://www.scape-project.eu/pw/vocab/qualifiers#> .
+<http://purl.org/DP/control-policy/qualifiers#EQ>
+    a skos:Concept ;
+    skos:inScheme <http://purl.org/DP/control-policy/qualifiers#scheme> ;
+    skos:prefLabel "equal" .
 
-:scheme a skos:ConceptScheme;
-	dct:title "Qualifiers".
+<http://purl.org/DP/control-policy/qualifiers#GE>
+    a skos:Concept ;
+    skos:inScheme <http://purl.org/DP/control-policy/qualifiers#scheme> ;
+    skos:prefLabel "greater than or equal to" .
 
-:EQ a skos:Concept;
-      skos:prefLabel "equal";
-      skos:inScheme :scheme.
-:GT a skos:Concept;
-      skos:prefLabel "greater than";
-      skos:inScheme :scheme.
-:LT a skos:Concept;
-      skos:prefLabel "less than";
-      skos:inScheme :scheme.
-:GE a skos:Concept;
-      skos:prefLabel "greater than or equal to";
-      skos:inScheme :scheme.
-:LE a skos:Concept;
-      skos:prefLabel "less than or equal to";
-      skos:inScheme :scheme.
+<http://purl.org/DP/control-policy/qualifiers#GT>
+    a skos:Concept ;
+    skos:inScheme <http://purl.org/DP/control-policy/qualifiers#scheme> ;
+    skos:prefLabel "greater than" .
+
+<http://purl.org/DP/control-policy/qualifiers#LE>
+    a skos:Concept ;
+    skos:inScheme <http://purl.org/DP/control-policy/qualifiers#scheme> ;
+    skos:prefLabel "less than or equal to" .
+
+<http://purl.org/DP/control-policy/qualifiers#LT>
+    a skos:Concept ;
+    skos:inScheme <http://purl.org/DP/control-policy/qualifiers#scheme> ;
+    skos:prefLabel "less than" .
+
+<http://purl.org/DP/control-policy/qualifiers#scheme>
+    dct:title "Qualifiers" ;
+    a skos:ConceptScheme .
+

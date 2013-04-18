@@ -19,7 +19,7 @@ div do
         option measure[:label].to_s, :value => measure[:measure].to_s
       end
     end
-    input :type => "submit", :value => "Go!"
+    input.button :type => "submit", :value => "Go!"
   end
 end
 

@@ -1,26 +1,48 @@
 h2 "Selection"
 
+div.results do
+  p.done do
+    span.label name + ": "
+    span "[" + typeLabel + "]"
+    span measureLabel
+    span modalityLabel
+    span qualifierLabel
+    span value
+  end
+  
+  pre.rdf rdf
+end
+
 p do
-  span "Category: " + categoryLabel 
-  span category 
+  span.label "Type: " + typeLabel 
+  span.uri type
 end
 p do
-  span "Attribute: " + attributeLabel 
-  span attribute 
+  span.label "Category: " + categoryLabel 
+  span.uri category 
 end
 p do
-  span "Measure: " + measureLabel 
-  span measure
+  span.label "Attribute: " + attributeLabel 
+  span.uri attribute 
 end
 p do
-  span "Scale: " + scaleLabel
-  span scale
+  span.label "Measure: " + measureLabel 
+  span.uri measure
 end
 p do
-  span "Modality: " + modalityLabel
-  span modality
+  span.label "Scale: " + scaleLabel
+  span.uri scale
 end
 p do
-  span "Value: " + value
+  span.label "Modality: " + modalityLabel
+  span.uri modality
 end
+p do
+  span.label "Qualifier: " + qualifierLabel
+  span.uri qualifier
+end
+p do
+  span.label "Value: " + value
+end
+
 

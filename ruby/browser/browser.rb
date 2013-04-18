@@ -8,65 +8,53 @@ require 'haml'
 require 'markaby'
 require 'markaby/sinatra'
 
+set :port, 4567
+
 BEHAVIOUR = {
   :debug => false,
   :verbose => false
 }
 
-#ENDPOINT="http://localhost:3030/etree/sparql"
-#ENDPOINT="http://etree.linkedmusic.org/sparql"
+NAMESPACES=<<END
+prefix policies: <http://www.oesta.gv.at/policies/>
+prefix control-policy: <http://purl.org/DP/control-policy#>
+prefix modalities: <http://purl.org/DP/control-policy/modalities#>
+prefix scales: <http://purl.org/DP/quality/scales#>
+prefix scopes: <http://purl.org/DP/quality/scopes#>
+prefix qualifiers: <http://purl.org/DP/control-policy/qualifiers#>
+prefix quality: <http://purl.org/DP/quality#>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix pc: <http://purl.org/DP/preservation-case#>
+
+prefix dct: <http://purl.org/dc/terms/>
+
+prefix org: <http://www.w3.org/ns/org#>
+prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix pronom: <http://reference.data.gov.uk/technical-registry/>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix measures: <http://scape-project.eu/pw/vocab/measures/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+END
+
 ENDPOINT="http://localhost:3333/scape/sparql"
 
 $sparql = SPARQL::Client.new(ENDPOINT)
 
 get '/' do
-query = <<END
-prefix policies: <http://www.oesta.gv.at/policies/>
-prefix modalities: <http://scape-project.eu/pw/vocab/modalities#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix scales: <http://scape-project.eu/pw/vocab/scales#>
-prefix control-policy: <http://scape-project.eu/pw/vocab/control-policy#>
-prefix org: <http://www.w3.org/ns/org#>
-prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix pronom: <http://reference.data.gov.uk/technical-registry/>
-prefix mcat: <http://scape-project.eu/pw/vocab/mcat#>
-prefix metrics: <http://scape-project.eu/pw/vocab/metrics#>
-prefix qualifiers: <http://scape-project.eu/pw/vocab/qualifiers#>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix owl: <http://www.w3.org/2002/07/owl#>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix measures: <http://scape-project.eu/pw/vocab/measures/>
-prefix pw: <http://scape-project.eu/pw/vocab/>
-prefix skos: <http://www.w3.org/2004/02/skos/core#>
+query = NAMESPACES+<<END
 
-select distinct ?scenario where {
-?scenario rdf:type pw:Scenario.
-} ORDER BY ?scenario
+select distinct ?preservationCase where {
+?preservationCase rdf:type pc:PreservationCase.
+} ORDER BY ?preservationCase
 	
 END
 
-  scenarios = $sparql.query( query )
+  preservationCases = $sparql.query( query )
 
-query = <<END
-prefix policies: <http://www.oesta.gv.at/policies/>
-prefix modalities: <http://scape-project.eu/pw/vocab/modalities#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix scales: <http://scape-project.eu/pw/vocab/scales#>
-prefix control-policy: <http://scape-project.eu/pw/vocab/control-policy#>
-prefix org: <http://www.w3.org/ns/org#>
-prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix pronom: <http://reference.data.gov.uk/technical-registry/>
-prefix mcat: <http://scape-project.eu/pw/vocab/mcat#>
-prefix metrics: <http://scape-project.eu/pw/vocab/metrics#>
-prefix qualifiers: <http://scape-project.eu/pw/vocab/qualifiers#>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix owl: <http://www.w3.org/2002/07/owl#>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix measures: <http://scape-project.eu/pw/vocab/measures/>
-prefix pw: <http://scape-project.eu/pw/vocab/>
-prefix skos: <http://www.w3.org/2004/02/skos/core#>
+query = NAMESPACES+<<END
 
 select distinct ?organization ?identifier where {
 ?organization rdf:type org:Organization.
@@ -77,57 +65,49 @@ END
 
   organizations = $sparql.query( query )
 
-query = <<END
-prefix policies: <http://www.oesta.gv.at/policies/>
-prefix modalities: <http://scape-project.eu/pw/vocab/modalities#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix scales: <http://scape-project.eu/pw/vocab/scales#>
-prefix control-policy: <http://scape-project.eu/pw/vocab/control-policy#>
-prefix org: <http://www.w3.org/ns/org#>
-prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix pronom: <http://reference.data.gov.uk/technical-registry/>
-prefix mcat: <http://scape-project.eu/pw/vocab/mcat#>
-prefix metrics: <http://scape-project.eu/pw/vocab/metrics#>
-prefix qualifiers: <http://scape-project.eu/pw/vocab/qualifiers#>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix owl: <http://www.w3.org/2002/07/owl#>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix measures: <http://scape-project.eu/pw/vocab/measures/>
-prefix pw: <http://scape-project.eu/pw/vocab/>
-prefix skos: <http://www.w3.org/2004/02/skos/core#>
+query = NAMESPACES+<<END
 
 select distinct ?measure ?label where {
 ?objective control-policy:property ?measure.
-?measure rdfs:label ?label
+?measure skos:prefLabel ?label
 } ORDER BY ?label
 	
 END
 
   measures = $sparql.query( query )
 
-query = <<END
-prefix policies: <http://www.oesta.gv.at/policies/>
-prefix modalities: <http://scape-project.eu/pw/vocab/modalities#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix scales: <http://scape-project.eu/pw/vocab/scales#>
-prefix control-policy: <http://scape-project.eu/pw/vocab/control-policy#>
-prefix org: <http://www.w3.org/ns/org#>
-prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix pronom: <http://reference.data.gov.uk/technical-registry/>
-prefix mcat: <http://scape-project.eu/pw/vocab/mcat#>
-prefix metrics: <http://scape-project.eu/pw/vocab/metrics#>
-prefix qualifiers: <http://scape-project.eu/pw/vocab/qualifiers#>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix owl: <http://www.w3.org/2002/07/owl#>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix measures: <http://scape-project.eu/pw/vocab/measures/>
-prefix pw: <http://scape-project.eu/pw/vocab/>
-prefix skos: <http://www.w3.org/2004/02/skos/core#>
+query = NAMESPACES+<<END
+
+select distinct ?attribute ?label where {
+?objective control-policy:property ?measure.
+?measure quality:attribute ?attribute.
+?attribute skos:prefLabel ?label.
+
+} ORDER BY ?label
+	
+END
+
+  attributes = $sparql.query( query )
+
+query = NAMESPACES+<<END
+
+select distinct ?category ?label where {
+?objective control-policy:property ?measure.
+?measure quality:attribute ?attribute.
+?attribute quality:criterionCategory ?category.
+?category skos:prefLabel ?label
+
+} ORDER BY ?label
+	
+END
+
+  categories = $sparql.query( query )
+
+
+query = NAMESPACES+<<END
 
 select distinct ?objective where {
-?scenario pw:hasObjective ?objective.
+?preservationCase pc:hasObjective ?objective.
 } ORDER BY ?objective
 	
 END
@@ -135,39 +115,21 @@ END
   objectives = $sparql.query( query )
 
   markaby :index, :locals => {:pageTitle => "Home: SCAPE", 
-    :scenarios => scenarios, :organizations => organizations, 
-    :measures => measures, :objectives => objectives}
+    :preservationCases => preservationCases, :organizations => organizations, 
+    :measures => measures, :attributes => attributes, :categories => categories, :objectives => objectives}
 
 end # '/'
 
-get '/scenario/*' do
-  scenario = URI.unescape(params[:splat][0])
-  query = <<END
-prefix policies: <http://www.oesta.gv.at/policies/>
-prefix modalities: <http://scape-project.eu/pw/vocab/modalities#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix scales: <http://scape-project.eu/pw/vocab/scales#>
-prefix control-policy: <http://scape-project.eu/pw/vocab/control-policy#>
-prefix org: <http://www.w3.org/ns/org#>
-prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix pronom: <http://reference.data.gov.uk/technical-registry/>
-prefix mcat: <http://scape-project.eu/pw/vocab/mcat#>
-prefix metrics: <http://scape-project.eu/pw/vocab/metrics#>
-prefix qualifiers: <http://scape-project.eu/pw/vocab/qualifiers#>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix owl: <http://www.w3.org/2002/07/owl#>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix measures: <http://scape-project.eu/pw/vocab/measures/>
-prefix pw: <http://scape-project.eu/pw/vocab/>
-prefix skos: <http://www.w3.org/2004/02/skos/core#>
+get '/preservationCase/*' do
+  preservationCase = URI.unescape(params[:splat][0])
+  query = NAMESPACES+<<END
 
 select distinct ?content ?users  where {
 optional {
-<#{scenario}> pw:hasUserCommunity ?users.
+<#{preservationCase}> pc:hasUserCommunity ?users.
 }
 optional {
-<#{scenario}> pw:hasContentSet ?content.
+<#{preservationCase}> pc:hasContentSet ?content.
 }
 }
 END
@@ -177,37 +139,19 @@ END
     puts result[:content].inspect
   end
 
-query = <<END
-prefix policies: <http://www.oesta.gv.at/policies/>
-prefix modalities: <http://scape-project.eu/pw/vocab/modalities#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix scales: <http://scape-project.eu/pw/vocab/scales#>
-prefix control-policy: <http://scape-project.eu/pw/vocab/control-policy#>
-prefix org: <http://www.w3.org/ns/org#>
-prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix pronom: <http://reference.data.gov.uk/technical-registry/>
-prefix mcat: <http://scape-project.eu/pw/vocab/mcat#>
-prefix metrics: <http://scape-project.eu/pw/vocab/metrics#>
-prefix qualifiers: <http://scape-project.eu/pw/vocab/qualifiers#>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix owl: <http://www.w3.org/2002/07/owl#>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix measures: <http://scape-project.eu/pw/vocab/measures/>
-prefix pw: <http://scape-project.eu/pw/vocab/>
-prefix skos: <http://www.w3.org/2004/02/skos/core#>
+query = NAMESPACES+<<END
 
-select distinct ?objective ?type ?property ?modality ?qualifier ?value ?scope where {
-<#{scenario}> pw:hasObjective ?objective.
-?objective rdf:type ?objtype.
-?objtype rdfs:label ?type.
+select distinct ?objective ?type ?prop ?property ?modality ?qualifier ?value ?scope where {
+<#{preservationCase}> pc:hasObjective ?objective.
+?objective rdf:type ?type.
+
 FILTER (?type != <http://www.w3.org/2002/07/owl#NamedIndividual>)
 optional {
-  ?objective pw:contentSetScope ?scope.
+  ?objective pc:contentSetScope ?scope.
 }
 optional {
   ?objective control-policy:property ?prop.
-  ?prop rdfs:label ?property.
+  ?prop skos:prefLabel ?property.
 }
 optional {
   ?objective control-policy:value ?value.
@@ -220,67 +164,31 @@ optional {
   ?objective control-policy:qualifier ?q.
   ?q skos:prefLabel ?qualifier.
 }
-} ORDER BY ?scenario
+} ORDER BY ?preservationCase
 END
 
   objectives = $sparql.query( query )
 
-  markaby :scenario, :locals => {:pageTitle => scenario, :scenario => scenario, :results => results, :objectives => objectives}
-end #scenario
+  markaby :preservationCase, :locals => {:pageTitle => preservationCase, :preservationCase => preservationCase, :results => results, :objectives => objectives}
+end #preservationCase
 
 get '/content-set/*' do
   content = URI.unescape(params[:splat][0])
-  query = <<END
-prefix policies: <http://www.oesta.gv.at/policies/>
-prefix modalities: <http://scape-project.eu/pw/vocab/modalities#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix scales: <http://scape-project.eu/pw/vocab/scales#>
-prefix control-policy: <http://scape-project.eu/pw/vocab/control-policy#>
-prefix org: <http://www.w3.org/ns/org#>
-prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix pronom: <http://reference.data.gov.uk/technical-registry/>
-prefix mcat: <http://scape-project.eu/pw/vocab/mcat#>
-prefix metrics: <http://scape-project.eu/pw/vocab/metrics#>
-prefix qualifiers: <http://scape-project.eu/pw/vocab/qualifiers#>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix owl: <http://www.w3.org/2002/07/owl#>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix measures: <http://scape-project.eu/pw/vocab/measures/>
-prefix pw: <http://scape-project.eu/pw/vocab/>
-prefix skos: <http://www.w3.org/2004/02/skos/core#>
+  query = NAMESPACES+<<END
 
 select distinct ?subcontent  where {
 optional {
-<#{content}> pw:consistsOf ?subcontent
+<#{content}> pc:consistsOf ?subcontent
 }
 }
 END
   puts query if BEHAVIOUR[:verbose]
   subcontent = $sparql.query( query )
 
-query = <<END
-prefix policies: <http://www.oesta.gv.at/policies/>
-prefix modalities: <http://scape-project.eu/pw/vocab/modalities#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix scales: <http://scape-project.eu/pw/vocab/scales#>
-prefix control-policy: <http://scape-project.eu/pw/vocab/control-policy#>
-prefix org: <http://www.w3.org/ns/org#>
-prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix pronom: <http://reference.data.gov.uk/technical-registry/>
-prefix mcat: <http://scape-project.eu/pw/vocab/mcat#>
-prefix metrics: <http://scape-project.eu/pw/vocab/metrics#>
-prefix qualifiers: <http://scape-project.eu/pw/vocab/qualifiers#>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix owl: <http://www.w3.org/2002/07/owl#>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix measures: <http://scape-project.eu/pw/vocab/measures/>
-prefix pw: <http://scape-project.eu/pw/vocab/>
-prefix skos: <http://www.w3.org/2004/02/skos/core#>
+query = NAMESPACES+<<END
 
 select distinct ?organization  where {
-<#{content}> pw:belongsToOrganization ?organization
+<#{content}> pc:belongsToOrganization ?organization
 }
 END
 
@@ -291,25 +199,7 @@ end #content-set
 
 get '/organization/*' do
   organization = URI.unescape(params[:splat][0])
-  query = <<END
-prefix policies: <http://www.oesta.gv.at/policies/>
-prefix modalities: <http://scape-project.eu/pw/vocab/modalities#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix scales: <http://scape-project.eu/pw/vocab/scales#>
-prefix control-policy: <http://scape-project.eu/pw/vocab/control-policy#>
-prefix org: <http://www.w3.org/ns/org#>
-prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix pronom: <http://reference.data.gov.uk/technical-registry/>
-prefix mcat: <http://scape-project.eu/pw/vocab/mcat#>
-prefix metrics: <http://scape-project.eu/pw/vocab/metrics#>
-prefix qualifiers: <http://scape-project.eu/pw/vocab/qualifiers#>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix owl: <http://www.w3.org/2002/07/owl#>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix measures: <http://scape-project.eu/pw/vocab/measures/>
-prefix pw: <http://scape-project.eu/pw/vocab/>
-prefix skos: <http://www.w3.org/2004/02/skos/core#>
+  query = NAMESPACES+<<END
 
 select ?identifier where {
 <#{organization}> org:identifier ?identifier.
@@ -318,68 +208,32 @@ END
   puts query if BEHAVIOUR[:verbose]
   identifiers = $sparql.query( query )
 
-  query = <<END
-prefix policies: <http://www.oesta.gv.at/policies/>
-prefix modalities: <http://scape-project.eu/pw/vocab/modalities#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix scales: <http://scape-project.eu/pw/vocab/scales#>
-prefix control-policy: <http://scape-project.eu/pw/vocab/control-policy#>
-prefix org: <http://www.w3.org/ns/org#>
-prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix pronom: <http://reference.data.gov.uk/technical-registry/>
-prefix mcat: <http://scape-project.eu/pw/vocab/mcat#>
-prefix metrics: <http://scape-project.eu/pw/vocab/metrics#>
-prefix qualifiers: <http://scape-project.eu/pw/vocab/qualifiers#>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix owl: <http://www.w3.org/2002/07/owl#>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix measures: <http://scape-project.eu/pw/vocab/measures/>
-prefix pw: <http://scape-project.eu/pw/vocab/>
-prefix skos: <http://www.w3.org/2004/02/skos/core#>
+  query = NAMESPACES+<<END
 
 select ?objective where {
-?objective pw:organizationScope <#{organization}>.
+?objective pc:organizationScope <#{organization}>.
 }
 END
   puts query if BEHAVIOUR[:verbose]
   objectives = $sparql.query( query )
 
   markaby :organization, :locals => {:pageTitle => organization, :organization => organization, :identifiers => identifiers, :objectives => objectives}
-end
+end #organization
 
 get '/objective/*' do
   objective = URI.unescape(params[:splat][0])
-query = <<END
-prefix policies: <http://www.oesta.gv.at/policies/>
-prefix modalities: <http://scape-project.eu/pw/vocab/modalities#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix scales: <http://scape-project.eu/pw/vocab/scales#>
-prefix control-policy: <http://scape-project.eu/pw/vocab/control-policy#>
-prefix org: <http://www.w3.org/ns/org#>
-prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix pronom: <http://reference.data.gov.uk/technical-registry/>
-prefix mcat: <http://scape-project.eu/pw/vocab/mcat#>
-prefix metrics: <http://scape-project.eu/pw/vocab/metrics#>
-prefix qualifiers: <http://scape-project.eu/pw/vocab/qualifiers#>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix owl: <http://www.w3.org/2002/07/owl#>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix measures: <http://scape-project.eu/pw/vocab/measures/>
-prefix pw: <http://scape-project.eu/pw/vocab/>
-prefix skos: <http://www.w3.org/2004/02/skos/core#>
+query = NAMESPACES+<<END
 
 select ?type ?prop ?property ?modality ?qualifier ?value ?scope where {
-<#{objective}> rdf:type ?objtype.
-?objtype rdfs:label ?type.
+<#{objective}> rdf:type ?type.
+
 FILTER (?type != <http://www.w3.org/2002/07/owl#NamedIndividual>)
 optional {
-  <#{objective}> pw:contentSetScope ?scope.
+  <#{objective}> pc:contentSetScope ?scope.
 }
 <#{objective}> control-policy:property ?prop.
 optional {
-  ?prop rdfs:label ?property.
+  ?prop skos:prefLabel ?property.
 }
 optional {
   <#{objective}> control-policy:value ?value.
@@ -396,46 +250,40 @@ optional {
 END
 
   details = $sparql.query( query )
-  markaby :objective, :locals => {:pageTitle => objective, :objective => objective, :details => details}
+
+query = NAMESPACES+<<END
+
+select ?preservationCase where {
+?preservationCase pc:hasObjective <#{objective}>.
+} 
+END
+
+  preservationCases = $sparql.query( query ) 
+  markaby :objective, :locals => {:pageTitle => objective, :objective => objective, :details => details, :preservationCases => preservationCases}
 end #objective
 
 
 get '/measure/*' do
   measure = URI.unescape(params[:splat][0])
-  query = <<END
-prefix policies: <http://www.oesta.gv.at/policies/>
-prefix modalities: <http://scape-project.eu/pw/vocab/modalities#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix scales: <http://scape-project.eu/pw/vocab/scales#>
-prefix control-policy: <http://scape-project.eu/pw/vocab/control-policy#>
-prefix org: <http://www.w3.org/ns/org#>
-prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix pronom: <http://reference.data.gov.uk/technical-registry/>
-prefix mcat: <http://scape-project.eu/pw/vocab/mcat#>
-prefix metrics: <http://scape-project.eu/pw/vocab/metrics#>
-prefix qualifiers: <http://scape-project.eu/pw/vocab/qualifiers#>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix owl: <http://www.w3.org/2002/07/owl#>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix measures: <http://scape-project.eu/pw/vocab/measures/>
-prefix pw: <http://scape-project.eu/pw/vocab/>
-prefix skos: <http://www.w3.org/2004/02/skos/core#>
+  puts measure
+  query = NAMESPACES+<<END
 
-select ?label ?description ?attlabel ?attdescription ?scale where {
-<#{measure}> rdfs:label ?label.
+select ?label ?description ?category ?categorylabel ?attribute ?attributelabel ?attributedescription ?scale where {
+<#{measure}> skos:prefLabel ?label.
 optional {
-  <#{measure}> pw:description ?description.
+  <#{measure}> dct:description ?description.
 }
 optional {
-  <#{measure}> pw:attribute ?att.
+  <#{measure}> quality:attribute ?attribute.
 }
 optional {
-  ?att rdfs:label ?attlabel.
-  ?att pw:description ?attdescription.
+  ?attribute skos:prefLabel ?attributelabel.
+  ?attribute dct:description ?attributedescription.
+  ?attribute quality:criterionCategory ?category.
+  ?category skos:prefLabel ?categorylabel.
 }
 optional {
-  <#{measure}> pw:scale ?sc.
+  <#{measure}> quality:scale ?sc.
   ?sc skos:prefLabel ?scale.
 }
 } 
@@ -445,3 +293,168 @@ END
 
   markaby :measure, :locals => {:pageTitle => measure, :measure => measure, :details => details}
 end #measure
+
+get '/measures' do
+  query = NAMESPACES+<<END
+
+select distinct ?measure ?label ?description ?category ?categorylabel ?attribute ?attributelabel ?attributedescription ?scale where {
+?measure rdf:type quality:Measure.
+?measure skos:prefLabel ?label.
+optional {
+  ?measure dct:description ?description.
+}
+optional {
+  ?measure quality:attribute ?attribute.
+}
+optional {
+  ?attribute skos:prefLabel ?attributelabel.
+  ?attribute dct:description ?attributedescription.
+  ?attribute quality:criterionCategory ?category.
+  ?category skos:prefLabel ?categorylabel.
+}
+optional {
+  ?measure quality:scale ?sc.
+  ?sc skos:prefLabel ?scale.
+}
+} 
+END
+  puts query if BEHAVIOUR[:verbose]
+  measures = $sparql.query( query )
+
+  markaby :measures, :locals => {:pageTitle => "Measures", :measures => measures}
+end #measures
+
+get '/attribute/*' do
+  attribute = URI.unescape(params[:splat][0])
+  puts attribute
+  query = NAMESPACES+<<END
+
+select ?label ?description ?category ?categorylabel ?attributedescription ?scale where {
+<#{attribute}> skos:prefLabel ?label.
+optional {
+  <#{attribute}> dct:description ?description.
+}
+optional {
+  <#{attribute}> quality:criterionCategory ?category.
+  ?category skos:prefLabel ?categorylabel.
+}
+} 
+END
+  puts query if BEHAVIOUR[:verbose]
+  details = $sparql.query( query )
+
+  query = NAMESPACES+<<END
+
+select ?measure ?label where {
+?measure quality:attribute <#{attribute}>.
+?measure skos:prefLabel ?label.
+} 
+END
+  puts query if BEHAVIOUR[:verbose]
+  measures = $sparql.query( query )
+
+
+  markaby :attribute, :locals => {:pageTitle => attribute, :attribute => attribute, :details => details, :measures => measures}
+end #attribute
+
+get '/attributes' do
+  query = NAMESPACES+<<END
+
+select ?attribute ?label ?description ?category ?categorylabel where {
+?attribute rdf:type quality:Attribute.
+?attribute skos:prefLabel ?label.
+optional {
+  ?attribute dct:description ?description.
+}
+optional {
+  ?attribute quality:criterionCategory ?category.
+  ?category skos:prefLabel ?categorylabel.
+}
+} 
+END
+  puts query if BEHAVIOUR[:verbose]
+  attributes = $sparql.query( query )
+
+  markaby :attributes, :locals => {:pageTitle => "Attributes", :attributes => attributes}
+end #attributes
+
+get '/criterioncategory/*' do
+  category = URI.unescape(params[:splat][0])
+  puts category
+
+  query = NAMESPACES+<<END
+
+select ?label where {
+<#{category}> skos:prefLabel ?label.
+} 
+END
+  puts query if BEHAVIOUR[:verbose]
+  details = $sparql.query( query )
+
+  query = NAMESPACES+<<END
+
+select ?attribute ?label where {
+?attribute quality:criterionCategory <#{category}>.
+?attribute skos:prefLabel ?label.
+} 
+END
+  puts query if BEHAVIOUR[:verbose]
+  attributes = $sparql.query( query )
+
+  markaby :criterioncategory, :locals => {:pageTitle => category, :category => category, :details => details, :attributes => attributes}
+end #criterioncategory
+
+get '/criterioncategories' do
+  query = NAMESPACES+<<END
+
+select ?category ?label where {
+?category rdf:type quality:CriterionCategory.
+?category skos:prefLabel ?label.
+} 
+END
+  puts query if BEHAVIOUR[:verbose]
+  categories = $sparql.query( query )
+
+  markaby :criterioncategories, :locals => {:pageTitle => "Categories", :categories => categories}
+end #criterioncategories
+
+get '/category/*' do
+  category = URI.unescape(params[:splat][0])
+  puts category
+
+  query = NAMESPACES+<<END
+
+select ?label where {
+<#{category}> skos:prefLabel ?label.
+} 
+END
+  puts query if BEHAVIOUR[:verbose]
+  details = $sparql.query( query )
+
+  query = NAMESPACES+<<END
+
+select ?criterioncategory ?label where {
+<#{category}> quality:subcategory ?criterioncategory.
+?criterioncategory skos:prefLabel ?label.
+} 
+END
+  puts query if BEHAVIOUR[:verbose]
+  subcategories = $sparql.query( query )
+
+  markaby :category, :locals => {:pageTitle => category, :category => category, :details => details, :subcategories => subcategories}
+end #category
+
+get '/categories' do
+  query = NAMESPACES+<<END
+
+select ?category ?label where {
+?category rdf:type quality:Category.
+?category skos:prefLabel ?label.
+} 
+END
+  puts query if BEHAVIOUR[:verbose]
+  categories = $sparql.query( query )
+
+  markaby :categories, :locals => {:pageTitle => "Categories", :categories => categories}
+end #categories
+

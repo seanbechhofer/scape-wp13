@@ -7,7 +7,7 @@ div do
         option category[:label], :value => category[:category].to_s
       end
     end
-    input :type => "submit", :value => "Go!"
+    input.button :type => "submit", :value => "Go!"
   end
 end
 

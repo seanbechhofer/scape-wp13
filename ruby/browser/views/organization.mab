@@ -12,7 +12,7 @@ h3 "Objectives"
 ul do |ul|
   objectives.each do |objective|
     ul.li do
-      a objective[:objective], :href => "/objective/" + URI.escape(objective[:objective].to_s,"/:")
+      a objective[:objective], :href => "/objective/" + URI.escape(objective[:objective].to_s,"/:#")
     end
   end
 end
