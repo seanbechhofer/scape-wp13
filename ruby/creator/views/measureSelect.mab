@@ -1,25 +1,62 @@
-h2 "Measures"
-
-p do
-  span "Category: " + categoryLabel 
-  span category 
-end
-p do
-  span "Attribute: " + attributeLabel 
-  span attribute
-end
-
-div do
-  form :action => "measure" do 
-    input :type => "hidden", :name => "category", :value => category
-    input :type => "hidden", :name => "attribute", :value => attribute
-
-    select :name=> "measure" do
-      measures.each do |measure|
-        option measure[:label].to_s, :value => measure[:measure].to_s
+div.container do
+  div.row do
+    div :class => 'col-md-12' do
+      h2 "Details" 
+      table :class => "table table-striped table-condensed" do
+        tr do
+          td "Preservation Case:"
+          td do
+            span preservationCase
+            span " (" + preservationCase + ")", :class => "text-muted"  
+          end
+        end
+        tr do
+          td "Category:"
+          td do
+            span categoryLabel
+            span " (" + category + ")", :class => "text-muted"
+          end
+        end
+        tr do
+          td "Attribute:"
+          td do
+            span attributeLabel
+            span " (" + attribute + ")", :class => "text-muted"
+          end
+        end
       end
     end
-    input.button :type => "submit", :value => "Go!"
+  end
+
+  div.row do
+    div :class => 'col-md-12' do
+      h2 "Measures"
+    end
+  end
+
+  div.row do
+    form :action => "measure", :class => "form-horizontal" do 
+      input :type => "hidden", :name => "preservationCase", :value => preservationCase
+      input :type => "hidden", :name => "category", :value => category
+      input :type => "hidden", :name => "categoryLabel", :value => categoryLabel
+      input :type => "hidden", :name => "attribute", :value => attribute
+      if (measures.size == 0) then
+        div :class => "col-md-8" do
+          p "No Measures"
+        end
+      else
+        div :class => "col-md-8" do
+          select :class => "form-control", :name=> "measure" do
+            measures.each do |measure|
+              option measure[:label], :value => measure[:measure].to_s
+            end
+          end
+        end
+        div :class => "col-md-2" do
+          button "Go", :type => "submit", :class => "btn btn-success"
+        end
+      end
+    end
   end
 end
 

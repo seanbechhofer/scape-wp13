@@ -39,6 +39,7 @@
     fuseki:serviceReadWriteGraphStore  "data" ;     
     fuseki:serviceReadGraphStore       "get" ;
     fuseki:serviceUpload               "upload" ;   # Non-SPARQL upload service
+    fuseki:serviceUpdate               "update" ;   # SPARQL query service
     fuseki:serviceReadGraphStore       "" ;      
     fuseki:dataset                     <#dataset> ;
     .

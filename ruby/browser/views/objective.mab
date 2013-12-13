@@ -1,64 +1,89 @@
-h2 "Objective"
-p do 
-  a objective.to_s, :href => "/objective/" + URI.escape(objective.to_s,"/:#")
-end
 
-h3 "PreservationCases"
-
-div do 
-  preservationCases.each do |preservationCase|
-    ul do |ul|
-      preservationCases.each do |preservationCase|
-        ul.li {
-          a preservationCase[:preservationCase], :href => "/preservationCase/" + URI.escape(preservationCase[:preservationCase].to_s, "/:#")
-        }
+div.container do
+  div.row do
+    div :class => "col-md-12" do 
+      h2 "Objective"
+      p.lead do 
+        a objective.to_s, :href => "/objective?uri=" + URI.escape(objective.to_s,"/:#")
       end
     end
   end
-end
-
-h3 "Details"
-
-details.each do |detail|
-  div.objective do
-    table.objective do
-      tr do
-        th "Facet"
-        th "Value"
+  div.row do
+    div :class => "col-md-12" do 
+      h3 "PreservationCases"
+      
+      div do 
+        preservationCases.each do |preservationCase|
+          ul do |uul|
+          preservationCases.each do |preservationCase|
+              uul.li do 
+                a preservationCase[:preservationCase].to_s, :href => "/preservationCase?uri=" + URI.escape(preservationCase[:preservationCase].to_s, "/:#")
+              end
+            end
+          end
+        end
       end
-      tr do
-        td "Type"
-        td detail[:type].to_s
-      end
-      tr do
-        td "Property"
-        td do
+    end
+  end
+
+  div.row do
+    div :class => "col-md-12" do 
+      h3 "Details"
+      
+      details.each do |detail|
+        p :class => "text-success lead" do
           if detail[:property].nil? then
             lab = detail[:prop].to_s
           else
             lab = detail[:property].to_s
           end
-          a lab, :href => "/measure/" + URI.escape(detail[:prop].to_s, "/:#")
+          span lab
+          span detail[:modality].to_s
+          span "be"
+          span detail[:qualifier].to_s
+          span detail[:value].to_s
+        end
+        
+        table :class => "table table-striped table-condensed" do
+          tr do
+            th "Facet"
+            th "Value"
+          end
+          tr do
+            td "Type"
+            td detail[:type].to_s
+          end
+          tr do
+            td "Measure"
+            td do
+              if detail[:property].nil? then
+                  lab = detail[:prop].to_s
+              else
+                lab = detail[:property].to_s
+              end
+              a lab, :href => "/measure?uri=" + URI.escape(detail[:prop].to_s, "/:#")
+            end
+          end
+          tr do
+            td "Modality"
+            td detail[:modality].to_s
+          end
+          tr do
+            td "Qualifier"
+            td detail[:qualifier].to_s
+          end
+          tr do
+            td "Value"
+            td detail[:value].to_s
+          end
+          tr do
+            td "Scope"
+            td do
+              a detail[:scope].to_s, :href => "/content-set?uri=" + URI.escape(detail[:scope].to_s,"/:#")
+            end
+          end
         end
       end
-      tr do
-        td "Modality"
-        td detail[:modality].to_s
-      end
-      tr do
-        td "Qualifier"
-        td detail[:qualifier].to_s
-      end
-      tr do
-        td "Value"
-        td detail[:value].to_s
-      end
-      tr do
-        td "Scope"
-        td do
-          a detail[:scope].to_s, :href => "/content-set/" + URI.escape(detail[:scope].to_s,"/:#")
-        end
-      end
-    end # table
+    end
   end
 end

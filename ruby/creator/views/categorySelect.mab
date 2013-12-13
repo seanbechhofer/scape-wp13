@@ -1,13 +1,37 @@
-h2 "Criterion Categories"
-
-div do
-  form :action => "category" do 
-    select :name=> "category" do
-      categories.each do |category|
-        option category[:label], :value => category[:category].to_s
+div.container do
+  div.row do
+    div :class => 'col-md-12' do
+      h2 "Details" 
+      table :class => "table table-striped table-condensed" do
+        tr do
+          td "Preservation Case:"
+          td do
+            span preservationCase
+            span " (" + preservationCase + ")", :class => "text-muted"  
+          end
+        end
       end
     end
-    input.button :type => "submit", :value => "Go!"
+  end
+  div.row do
+    div :class => 'col-md-12' do
+      h2 "Criterion Categories"
+    end
+  end
+    
+  div.row do
+    form :action => "category", :class => "form-horizontal" do 
+      input :type => "hidden", :name => "preservationCase", :value => preservationCase
+      div :class => "col-md-8" do
+        select :class => "form-control", :name=> "category" do
+          categories.each do |category|
+            option category[:label], :value => category[:category].to_s
+          end
+        end
+      end
+      div :class => "col-md-2" do
+        button "Go", :type => "submit", :class => "btn btn-success"
+      end
+    end
   end
 end
-

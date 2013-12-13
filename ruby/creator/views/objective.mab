@@ -13,7 +13,7 @@ details.each do |detail|
         td detail[:type].to_s
       end
       tr do
-        td "Property"
+        td "Measure"
         td do
           if detail[:property].nil? then
             lab = detail[:prop].to_s

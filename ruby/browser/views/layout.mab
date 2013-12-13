@@ -1,26 +1,43 @@
-xhtml_rdfa do
+html do
   head {
-    title pageTitle
-    link :rel => "stylesheet", :href => "/css/style.css"
+    title pageTitle    
+    meta :name => "viewport", :content => "width=device-width, initial-scale=1.0"
+    link :rel => "stylesheet", :href => "/css/bootstrap.css"
+#    link :rel => "stylesheet", :href => "/css/scape.css"
   }    
-  body do
-    div.content! do
-      h1 do
-        a "SCAPE Control Policies", :href => "/"
+  body :style => "padding-top: 50px" do
+    div :class => "navbar navbar-inverse navbar-fixed-top" do
+      div :class => "navbar-header" do
+        button :type => "button", :class => "navbar-toggle" do # :data-toggle => "collapse" :data-target => ".navbar-collapse"
+          span :class => "icon-bar"
+          span :class => "icon-bar"
+          span :class => "icon-bar"
+        end
+        a "SCAPE", :class => "navbar-brand", :href => "http://scape-project.eu"
       end
-#      div.head! do
-#        a :href => "/" do 
-#          img.logo! :src => "/band.png"
-#        end
-#      end
-      yield 
-    end
-    div.footer! do
-#      p do
-#        span "Powered by "
-#        a "linkedmusic.org", :href => "http://etree.linkedmusic.org" 
-#      end
+      div :class => "collapse navbar-collapse" do
+        ul :class => "nav navbar-nav" do
+          li :class => "active" do
+            a "Home", :href => "/"
+          end
+          li :class => "active" do
+            a "Categories", :href => "/categories"
+          end
+          li :class => "active" do
+            a "Criterion Categories", :href => "/criterioncategories"
+          end
+          li :class => "active" do
+            a "Attributes", :href => "/attributes"
+          end
+          li :class => "active" do
+            a "Measures", :href => "/measures"
+          end
+        end
+      end
     end
 
+    div.container do
+      yield 
+    end
   end
 end

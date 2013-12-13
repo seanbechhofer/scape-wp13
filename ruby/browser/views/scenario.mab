@@ -10,7 +10,7 @@ results.each do |result|
     tr do
       td.content "Content Set:" 
       td do
-        a result[:content].to_s, :href => "/content-set/" + URI.escape(result[:content].to_s, "/:#")
+        a result[:content].to_s, :href => "/content-set?uri=" + URI.escape(result[:content].to_s, "/:#")
       end
     end
     tr do
@@ -24,7 +24,7 @@ h3 "Objectives"
 
 objectives.each do |objective|
   div.objective do
-    p {a objective[:objective], :href => "/objective/" + URI.escape(objective[:objective].to_s,"/:#")}
+    p {a objective[:objective], :href => "/objective?uri=" + URI.escape(objective[:objective].to_s,"/:#")}
 
     table.objective do
       thead do
@@ -38,7 +38,7 @@ objectives.each do |objective|
       tr do
         td "Property"
         td do 
-          a objective[:property].to_s, :href => "/measure/" + URI.escape(objective[:prop].to_s,"/:#")
+          a objective[:property].to_s, :href => "/measure?uri=" + URI.escape(objective[:prop].to_s,"/:#")
         end
       end
       tr do
@@ -56,7 +56,7 @@ objectives.each do |objective|
       tr do
         td "Scope"
         td do
-          a objective[:scope].to_s, :href => "/content-set/" + URI.escape(objective[:scope].to_s,"/:#")
+          a objective[:scope].to_s, :href => "/content-set?uri=" + URI.escape(objective[:scope].to_s,"/:#")
         end
       end
     end # table

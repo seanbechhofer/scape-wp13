@@ -1,48 +1,136 @@
-h2 "Selection"
+div.container do
+  div.row do
+    div :class => 'col-md-12' do
+      
+      h2 "Selection"
 
-div.results do
-  p.done do
-    span.label name + ": "
-    span "[" + typeLabel + "]"
-    span measureLabel
-    span modalityLabel
-    span qualifierLabel
-    span value
+      div do
+        p :class => "text-primary lead" do
+          span url 
+          span "[" + typeLabel + "]"
+        end
+        p :class => "lead text-center" do
+          span measureLabel
+          span modalityLabel
+          span "be"
+          span qualifierLabel
+          span value
+        end
+      end
+    end
   end
+  div.row do
+    div :class => 'col-md-12' do
+      h3 "RDF"
+      pre.rdf rdf
+    end
+  end
+  div.row do    
+    div :class => 'col-md-12' do
+      h3 "Details"
+    end
+    div :class => 'col-md-11' do
+      table :class => "table table-striped table-condensed" do
+        tr do
+          th "Facet"
+          th "Value"
+          th "URI"
+        end
+        tr do
+          td "Preservation Case: "
+        td ""
+        td preservationCase
+      end
+      tr do
+        td "Objective: "
+        td ""
+        td url.to_s
+      end
+      tr do
+        td "Type: " 
+        td typeLabel 
+        td type
+      end
+      tr do
+        td "Category: "
+        td categoryLabel 
+        td category 
+      end
+      tr do
+        td "Guidance Policy: " 
+        td guidanceLabel
+        td guidance
+      end
+      tr do
+        td "Attribute: "
+        td attributeLabel 
+        td attribute 
+      end
+      tr do
+        td "Measure: " 
+        td measureLabel 
+        td measure
+      end
+      tr do
+        td "Scale: " 
+        td scaleLabel
+        td scale
+      end
+      tr do
+        td "Modality: " 
+        td modalityLabel
+        td modality
+      end
+      tr do
+        td "Qualifier: " 
+        td qualifierLabel
+        td qualifier
+      end
+      tr do
+        td "Value: " 
+        td value
+        td ""
+      end
+      tr do
+        td "Valid From: "
+        td validity['from']
+        td ""
+      end
+      tr do
+        td "Valid To: " 
+        td validity['to']
+        td ""
+      end
+    end
+  end
+  div :class => 'col-md-1' do
+    form :action => "insert" do 
+      input :type => "hidden", :name => "url", :value => url
+      input :type => "hidden", :name => "preservationCase", :value => preservationCase
+      input :type => "hidden", :name => "category", :value => category
+      input :type => "hidden", :name => "categoryLabel", :value => categoryLabel
+      input :type => "hidden", :name => "attribute", :value => attribute
+      input :type => "hidden", :name => "attributeLabel", :value => attributeLabel
+      input :type => "hidden", :name => "scale", :value => scale
+      input :type => "hidden", :name => "scaleLabel", :value => scaleLabel
+      input :type => "hidden", :name => "type", :value => type
+      input :type => "hidden", :name => "typeLabel", :value => typeLabel
+      input :type => "hidden", :name => "measure", :value => measure
+      input :type => "hidden", :name => "measureLabel", :value => measureLabel
+      input :type => "hidden", :name => "modality", :value => modality
+      input :type => "hidden", :name => "modalityLabel", :value => modalityLabel
+      input :type => "hidden", :name => "qualifier", :value => qualifier
+      input :type => "hidden", :name => "qualifierLabel", :value => qualifierLabel
+      input :type => "hidden", :name => "guidance", :value => guidance
+      input :type => "hidden", :name => "guidanceLabel", :value => guidanceLabel
+      input :type => "hidden", :name => "value", :value => value
+      input :type => "hidden", :name => "validFrom", :value => validity['from']
+      input :type => "hidden", :name => "validTo", :value => validity['to']
+      input :type => "hidden", :name => "rdf", :value => rdf
+      button "Insert", :class => "btn btn-primary", :type => "submit"
+    end
+    end
+  end
+end
+
   
-  pre.rdf rdf
-end
-
-p do
-  span.label "Type: " + typeLabel 
-  span.uri type
-end
-p do
-  span.label "Category: " + categoryLabel 
-  span.uri category 
-end
-p do
-  span.label "Attribute: " + attributeLabel 
-  span.uri attribute 
-end
-p do
-  span.label "Measure: " + measureLabel 
-  span.uri measure
-end
-p do
-  span.label "Scale: " + scaleLabel
-  span.uri scale
-end
-p do
-  span.label "Modality: " + modalityLabel
-  span.uri modality
-end
-p do
-  span.label "Qualifier: " + qualifierLabel
-  span.uri qualifier
-end
-p do
-  span.label "Value: " + value
-end
-
-

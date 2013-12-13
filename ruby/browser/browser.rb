@@ -4,7 +4,7 @@ require 'rubygems'
 require 'getopt/std'
 require 'sinatra'
 require 'sparql/client'
-require 'haml'
+#require 'haml'
 require 'markaby'
 require 'markaby/sinatra'
 
@@ -27,7 +27,6 @@ prefix foaf: <http://xmlns.com/foaf/0.1/>
 prefix pc: <http://purl.org/DP/preservation-case#>
 
 prefix dct: <http://purl.org/dc/terms/>
-
 prefix org: <http://www.w3.org/ns/org#>
 prefix premis: <http://multimedialab.elis.ugent.be/users/samcoppe/ontologies/Premis/premis.owl>
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -42,6 +41,10 @@ END
 ENDPOINT="http://localhost:3333/scape/sparql"
 
 $sparql = SPARQL::Client.new(ENDPOINT)
+
+def shorten(uri) 
+  return uri.sub!("http://purl.org/DP/","dp:")
+end
 
 get '/' do
 query = NAMESPACES+<<END
@@ -68,7 +71,7 @@ END
 query = NAMESPACES+<<END
 
 select distinct ?measure ?label where {
-?objective control-policy:property ?measure.
+?objective control-policy:measure ?measure.
 ?measure skos:prefLabel ?label
 } ORDER BY ?label
 	
@@ -79,7 +82,7 @@ END
 query = NAMESPACES+<<END
 
 select distinct ?attribute ?label where {
-?objective control-policy:property ?measure.
+?objective control-policy:measure ?measure.
 ?measure quality:attribute ?attribute.
 ?attribute skos:prefLabel ?label.
 
@@ -92,7 +95,7 @@ END
 query = NAMESPACES+<<END
 
 select distinct ?category ?label where {
-?objective control-policy:property ?measure.
+?objective control-policy:measure ?measure.
 ?measure quality:attribute ?attribute.
 ?attribute quality:criterionCategory ?category.
 ?category skos:prefLabel ?label
@@ -107,10 +110,14 @@ END
 query = NAMESPACES+<<END
 
 select distinct ?objective where {
-?preservationCase pc:hasObjective ?objective.
+?objective rdf:type ?o.
+?o rdfs:subClassOf control-policy:Objective.
 } ORDER BY ?objective
 	
 END
+
+#?preservationCase pc:hasObjective ?objective.
+
 
   objectives = $sparql.query( query )
 
@@ -120,8 +127,8 @@ END
 
 end # '/'
 
-get '/preservationCase/*' do
-  preservationCase = URI.unescape(params[:splat][0])
+get '/preservationCase' do
+  preservationCase = URI.unescape(params[:uri])
   query = NAMESPACES+<<END
 
 select distinct ?content ?users  where {
@@ -150,7 +157,7 @@ optional {
   ?objective pc:contentSetScope ?scope.
 }
 optional {
-  ?objective control-policy:property ?prop.
+  ?objective control-policy:measure ?prop.
   ?prop skos:prefLabel ?property.
 }
 optional {
@@ -172,8 +179,8 @@ END
   markaby :preservationCase, :locals => {:pageTitle => preservationCase, :preservationCase => preservationCase, :results => results, :objectives => objectives}
 end #preservationCase
 
-get '/content-set/*' do
-  content = URI.unescape(params[:splat][0])
+get '/content-set' do
+  content = URI.unescape(params[:uri])
   query = NAMESPACES+<<END
 
 select distinct ?subcontent  where {
@@ -197,8 +204,8 @@ END
   markaby :content, :locals => {:pageTitle => content, :content => content, :subcontent => subcontent, :organization => organization}
 end #content-set
 
-get '/organization/*' do
-  organization = URI.unescape(params[:splat][0])
+get '/organization' do
+  organization = URI.unescape(params[:uri])
   query = NAMESPACES+<<END
 
 select ?identifier where {
@@ -220,8 +227,8 @@ END
   markaby :organization, :locals => {:pageTitle => organization, :organization => organization, :identifiers => identifiers, :objectives => objectives}
 end #organization
 
-get '/objective/*' do
-  objective = URI.unescape(params[:splat][0])
+get '/objective' do
+  objective = URI.unescape(params[:uri])
 query = NAMESPACES+<<END
 
 select ?type ?prop ?property ?modality ?qualifier ?value ?scope where {
@@ -231,7 +238,7 @@ FILTER (?type != <http://www.w3.org/2002/07/owl#NamedIndividual>)
 optional {
   <#{objective}> pc:contentSetScope ?scope.
 }
-<#{objective}> control-policy:property ?prop.
+<#{objective}> control-policy:measure ?prop.
 optional {
   ?prop skos:prefLabel ?property.
 }
@@ -263,12 +270,12 @@ END
 end #objective
 
 
-get '/measure/*' do
-  measure = URI.unescape(params[:splat][0])
+get '/measure' do
+  measure = URI.unescape(params[:uri])
   puts measure
   query = NAMESPACES+<<END
 
-select ?label ?description ?category ?categorylabel ?attribute ?attributelabel ?attributedescription ?scale where {
+select ?label ?description ?category ?categorylabel ?attribute ?attributelabel ?attributedescription ?scale ?restriction where {
 <#{measure}> skos:prefLabel ?label.
 optional {
   <#{measure}> dct:description ?description.
@@ -285,6 +292,9 @@ optional {
 optional {
   <#{measure}> quality:scale ?sc.
   ?sc skos:prefLabel ?scale.
+}
+optional {
+  <#{measure}> quality:restriction ?restriction.
 }
 } 
 END
@@ -316,7 +326,7 @@ optional {
   ?measure quality:scale ?sc.
   ?sc skos:prefLabel ?scale.
 }
-} 
+} ORDER BY ?measure
 END
   puts query if BEHAVIOUR[:verbose]
   measures = $sparql.query( query )
@@ -324,8 +334,8 @@ END
   markaby :measures, :locals => {:pageTitle => "Measures", :measures => measures}
 end #measures
 
-get '/attribute/*' do
-  attribute = URI.unescape(params[:splat][0])
+get '/attribute' do
+  attribute = URI.unescape(params[:uri])
   puts attribute
   query = NAMESPACES+<<END
 
@@ -370,7 +380,7 @@ optional {
   ?attribute quality:criterionCategory ?category.
   ?category skos:prefLabel ?categorylabel.
 }
-} 
+} ORDER BY ?attribute
 END
   puts query if BEHAVIOUR[:verbose]
   attributes = $sparql.query( query )
@@ -378,8 +388,8 @@ END
   markaby :attributes, :locals => {:pageTitle => "Attributes", :attributes => attributes}
 end #attributes
 
-get '/criterioncategory/*' do
-  category = URI.unescape(params[:splat][0])
+get '/criterioncategory' do
+  category = URI.unescape(params[:uri])
   puts category
 
   query = NAMESPACES+<<END
@@ -410,7 +420,7 @@ get '/criterioncategories' do
 select ?category ?label where {
 ?category rdf:type quality:CriterionCategory.
 ?category skos:prefLabel ?label.
-} 
+} ORDER BY ?label
 END
   puts query if BEHAVIOUR[:verbose]
   categories = $sparql.query( query )
@@ -418,8 +428,8 @@ END
   markaby :criterioncategories, :locals => {:pageTitle => "Categories", :categories => categories}
 end #criterioncategories
 
-get '/category/*' do
-  category = URI.unescape(params[:splat][0])
+get '/category' do
+  category = URI.unescape(params[:uri])
   puts category
 
   query = NAMESPACES+<<END
@@ -458,3 +468,35 @@ END
   markaby :categories, :locals => {:pageTitle => "Categories", :categories => categories}
 end #categories
 
+get '/measureSearch' do
+  q = params[:q]
+
+  query = NAMESPACES+<<END
+select distinct ?measure ?label ?description ?category ?categorylabel ?attribute ?attributelabel ?attributedescription ?scale where {
+?measure rdf:type quality:Measure.
+?measure skos:prefLabel ?label.
+optional {
+  ?measure dct:description ?description.
+}
+optional {
+  ?measure quality:attribute ?attribute.
+}
+optional {
+  ?attribute skos:prefLabel ?attributelabel.
+  ?attribute dct:description ?attributedescription.
+  ?attribute quality:criterionCategory ?category.
+  ?category skos:prefLabel ?categorylabel.
+}
+optional {
+  ?measure quality:scale ?sc.
+  ?sc skos:prefLabel ?scale.
+}
+FILTER (regex(?description, "#{q}", "i")||
+        regex(?label, "#{q}", "i"))
+}
+END
+  puts query if BEHAVIOUR[:verbose]
+  measures = $sparql.query( query )
+
+  markaby :measureSearch, :locals => {:pageTitle => "Measures", :measures => measures, :query => q}
+end

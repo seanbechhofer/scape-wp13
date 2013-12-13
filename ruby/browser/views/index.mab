@@ -1,104 +1,116 @@
-div do
-  p "This application provides a simple front end for browsing SCAPE control policies/objectives and the elements used in those policies/objectives."
-end
+div.container do
+  # div.row do
+  #   div :class => 'col-md-12' do
+  #     p "This application provides a simple front end for browsing SCAPE control policies/objectives and the elements used in those policies/objectives."
+  #   end
+  # end
 
-h2 "Vocabulary"
-
-ul do |ul|
-  ul.li do
-    a "All Categories", :href=> "/categories"
-  end
-  ul.li do
-    a "All Criterion Categories", :href=> "/criterioncategories"
-  end
-  ul.li do
-    a "All Attributes", :href=> "/attributes"
-  end
-  ul.li do
-    a "All Measures", :href=> "/measures"
-  end
-end
-
-h2 "Preservation Cases"
-
-div do
-  ul do |ul|
-    preservationCases.each do |preservationCase|
-      ul.li {
-#        span preservationCase[:preservationCase]
-#        span preservationCase[:scope]
-#        span preservationCase[:users]
-        a preservationCase[:preservationCase], :href => "/preservationCase/" + URI.escape(preservationCase[:preservationCase].to_s, "/:#")
-      }
+  div.row do
+    div :class => "jumbotron" do
+      div :class => 'col-md-12' do
+        h1 "SCAPE Control Policy Browser"
+        p "This application allows browsing of control policies represented using the SCAPE control policy vocabulary. Policies are represented using RDF and held in a triple store."
+        p "This store can then be queried by tools such as Plato." 
+      end
     end
   end
 
-end
 
-h2 "Organisations"
+  div.row do
+    div :class => 'col-md-6' do
+      h2 "Preservation Cases"
+      
+      div do
+        ul do |ul|
+          preservationCases.each do |preservationCase|
+            ul.li {
+              #        span preservationCase[:preservationCase]
+              #        span preservationCase[:scope]
+              #        span preservationCase[:users]
+              a preservationCase[:preservationCase], :href => "/preservationCase?uri=" + URI.escape(preservationCase[:preservationCase].to_s, "/:#")
+            }
+          end
+        end
+      end
+    end
+    div :class => 'col-md-6' do
+      h2 "Organisations"
+      
+      div do
+        ul do |ul|
+          organizations.each do |organization|
+            ul.li {
+              a organization[:organization] + " (" + organization[:identifier] + ")", :href => "/organization?uri=" + URI.escape(organization[:organization].to_s, "/:#")
+            }
+          end
+        end
+      end
 
-div do
-  ul do |ul|
-    organizations.each do |organization|
-      ul.li {
-        a organization[:organization] + " (" + organization[:identifier] + ")", :href => "/organization/" + URI.escape(organization[:organization].to_s, "/:#")
-      }
     end
   end
+  div.row do
+    div :class => 'col-md-6' do
+      h2 "Objectives"
+      
+      div do
+        ol do |ul|
+          objectives.each do |objective|
+          ul.li {
+              span objective[:label].to_s
+              
+              a objective[:objective].to_s, :href => "/objective?uri=" + URI.escape(objective[:objective].to_s, "/:#")
+            }
+          end
+        end
+      end
+    end
 
-end
-
-h2 "Objectives"
-
-div do
-  ul do |ul|
-    objectives.each do |objective|
-      ul.li {
-        span objective[:label].to_s
-        
-        a objective[:objective].to_s, :href => "/objective/" + URI.escape(objective[:objective].to_s, "/:#")
-      }
+    div :class => 'col-md-6' do
+      h2 "Measures Used"
+      
+      div do
+        ol do |ul|
+          measures.each do |measure|
+            ul.li {
+              span measure[:label].to_s
+              
+              a measure[:measure].to_s, :href => "/measure?uri=" + URI.escape(measure[:measure].to_s, "/:#")
+              #        span measure[:measure].to_s
+            }
+          end
+        end
+      end
     end
   end
-end
-
-h2 "Measures Used"
-
-div do
-  ul do |ul|
-    measures.each do |measure|
-      ul.li {
-        span measure[:label].to_s
-        
-        a measure[:measure].to_s, :href => "/measure/" + URI.escape(measure[:measure].to_s, "/:#")
-#        span measure[:measure].to_s
-      }
+  div.row do
+    div :class => 'col-md-6' do
+      
+      h2 "Attributes Used"
+      
+      div do
+        ol do |ul|
+          attributes.each do |attribute|
+            ul.li {
+              span attribute[:label].to_s
+              a attribute[:attribute].to_s, :href => "/attribute?uri=" + URI.escape(attribute[:attribute].to_s, "/:#")
+            }
+          end
+        end
+      end
     end
-  end
-end
-
-h2 "Attributes Used"
-
-div do
-  ul do |ul|
-    attributes.each do |attribute|
-      ul.li {
-        span attribute[:label].to_s
-        a attribute[:attribute].to_s, :href => "/attribute/" + URI.escape(attribute[:attribute].to_s, "/:#")
-      }
-    end
-  end
-end
-
-h2 "Criterion Categories Used"
-
-div do
-  ul do |ul|
-    categories.each do |category|
-      ul.li {
-        span category[:label].to_s
-        a category[:category].to_s, :href => "/criterioncategory/" + URI.escape(category[:category].to_s, "/:#")
-      }
+    div :class => 'col-md-6' do
+      h2 "Criterion Categories Used"
+      
+      div do
+        ol do |ul|
+          categories.each do |category|
+            ul.li {
+              span category[:label].to_s
+              a category[:category].to_s, :href => "/criterioncategory?uri=" + URI.escape(category[:category].to_s, "/:#")
+            }
+          end
+        end
+      end
     end
   end
 end

@@ -1,15 +1,17 @@
-div do
-  p "This application provides a simple front end for creating SCAPE control policies/objectives"
-end
-
-h2 "Criterion Categories"
-
-div do
-  ul do |ul|
-    categories.each do |category|
-      ul.li {
-        category[:category].to_s + " " + category[:label].to_s
-      }
+div.container do
+  div.row do
+    div :class => "jumbotron" do
+      div :class => 'col-md-12' do
+        h2 "SCAPE Policy Creator" 
+        div do
+          p "This application allows for the creation of basic Control Policy Statements"
+        end
+        div do
+          a :href => "/preservationCase" do
+            button "Start >>", :class => "btn btn-primary btn-lg"
+          end
+        end
+      end
     end
   end
 end

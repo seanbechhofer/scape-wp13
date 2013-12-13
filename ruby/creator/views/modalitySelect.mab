@@ -1,6 +1,9 @@
 h2 "Details"
 
 p do
+  span "Preservation Case: " + preservationCase + " (" + preservationCase + ")"
+end
+p do
   span "Category: " + categoryLabel 
   span category 
 end
@@ -19,6 +22,7 @@ end
 
 div do
   form :action => "modality" do 
+    input :type => "hidden", :name => "preservationCase", :value => preservationCase
     input :type => "hidden", :name => "category", :value => category
     input :type => "hidden", :name => "attribute", :value => attribute
     input :type => "hidden", :name => "measure", :value => measure

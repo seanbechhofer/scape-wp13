@@ -12,7 +12,7 @@ div do
 #        span preservationCase[:preservationCase]
 #        span preservationCase[:scope]
 #        span preservationCase[:users]
-        a preservationCase[:preservationCase], :href => "/preservationCase/" + URI.escape(preservationCase[:preservationCase].to_s, "/:")
+        a preservationCase[:preservationCase], :href => "/preservationCase?uri=" + URI.escape(preservationCase[:preservationCase].to_s, "/:")
       }
     end
   end
@@ -25,7 +25,7 @@ div do
   ul do |ul|
     organizations.each do |organization|
       ul.li {
-        a organization[:organization] + " (" + organization[:identifier] + ")", :href => "/organization/" + URI.escape(organization[:organization].to_s, "/:")
+        a organization[:organization] + " (" + organization[:identifier] + ")", :href => "/organization?uri=" + URI.escape(organization[:organization].to_s, "/:")
       }
     end
   end
@@ -40,7 +40,7 @@ div do
       ul.li {
         span measure[:label].to_s
         
-        a measure[:measure].to_s, :href => "/measure/" + URI.escape(measure[:measure].to_s, "/:")
+        a measure[:measure].to_s, :href => "/measure?uri=" + URI.escape(measure[:measure].to_s, "/:")
 #        span measure[:measure].to_s
       }
     end
@@ -55,7 +55,7 @@ div do
       ul.li {
         span objective[:label].to_s
         
-        a objective[:objective].to_s, :href => "/objective/" + URI.escape(objective[:objective].to_s, "/:")
+        a objective[:objective].to_s, :href => "/objective?uri=" + URI.escape(objective[:objective].to_s, "/:")
       }
     end
   end
