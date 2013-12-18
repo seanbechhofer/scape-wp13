@@ -1,0 +1,80 @@
+/* SCAPE Colours 
+29  130 164
+68  159 189
+95  174 200
+141 198 221
+157 213 232
+0   0   0
+197 230 241
+*/
+
+/* navbar */
+
+.jumbotron h1, h1, h2, h3, h4, h5, h6 {
+    color: rgb(68,159,189);
+}
+
+th {
+    color: rgb(29,130,164);
+}
+
+.text-success {
+    color: rgb(29,130,164);
+}
+
+a {
+    color: rgb(95,174,200);
+}
+
+/* navbar */
+
+/* set the background-color to red */
+.navbar-inner
+{
+    background-color: rgb(29,130,161);
+    /* remove the gradient */
+    background-image: none;
+    /* set font color to white */
+    color: rgb(197,230,241);
+}	
+
+/* menu items */
+
+/* set the background of the menu items and default color  */
+
+.navbar .nav > li > a {
+    background-color: rgb(29,130,161);	
+    color: rgb(197,230,241);
+    
+}
+
+
+/* set hover and focus */
+.navbar .nav > li > a:focus,
+.navbar .nav > li > a:hover {
+    background-color: rgb(141,198,221);
+    color: rgb(197,230,241);
+}
+/* set active item */
+.navbar .nav > .active > a,
+.navbar .nav > .active > a:hover,
+.navbar .nav > .active > a:focus {
+    background-color: rgb(29,130,161);	
+    color: rgb(197,230,241);
+}
+
+.navbar .nav > .active > a:hover {
+    background-color: rgb(141,198,221);
+    color: black;
+}
+
+
+/* set font color and background of the project name (brand) */
+
+.navbar .navbar-brand, .navbar-collapse
+{
+    background-color: rgb(29,130,161);
+    color: rgb(197,230,241);
+}
+
+

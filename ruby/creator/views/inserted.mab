@@ -1,0 +1,26 @@
+div.container do
+  div.row do
+    div :class => 'col-md-12' do
+      h2 "Inserted!"
+      
+      div do
+        p :class => "lead text-success" do
+          span "Inserted into: " 
+          span graph
+        end
+        p response.to_s, :class => "text-primary"
+      end
+      
+      div do
+        form :action => "objective", :class => "form" do 
+          input :name => "preservationCase", :value => preservationCase, :type => "hidden"
+          button "Add More Objectives", :type => "submit", :class => "btn btn-primary"
+        end
+      end
+    end
+  end
+end
+
+
+
+

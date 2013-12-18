@@ -1,0 +1,35 @@
+h2 do
+  span "Measure Search: " 
+  em query
+end
+
+div do
+  table do
+    tr do
+      th "Label"
+      th "URI"
+      th "Description"
+      th "Attribute"
+      th "Criterion Category"
+      th "Scale"
+    end
+    measures.each do |measure|
+      tr do
+        td measure[:label].to_s
+        td do
+          a measure[:measure].to_s, :href => "/measure?uri=" + URI.escape(measure[:measure].to_s, "/:#"),
+            :title => measure[:label].to_s
+        end
+        td measure[:description].to_s
+        td do
+          a measure[:attributelabel].to_s, :href => "/attribute?uri=" + URI.escape(measure[:attribute].to_s, "/:#")
+          span.emph "(" +  measure[:attributedescription].to_s + ")"
+        end
+        td do
+          a measure[:categorylabel].to_s, :href => "/criterioncategory?uri=" + URI.escape(measure[:category].to_s, "/:#")
+        end
+        td measure[:scale].to_s
+      end
+    end # table
+  end
+end

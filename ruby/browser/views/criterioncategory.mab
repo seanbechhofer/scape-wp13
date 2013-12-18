@@ -1,0 +1,31 @@
+div.container do
+  div.row do
+    div :class => "col-md-12" do 
+      h2 do
+        "Criterion Category: " + details[0][:label].to_s
+      end
+      
+      p.lead do 
+        a category.to_s, :href => category.to_s
+      end
+    end
+  end
+
+  div.row do
+    div :class => "col-md-12" do 
+  
+      h2 "Attributes"
+      
+      table :class => "table table-striped table-condensed" do
+        attributes.each do |attribute|
+          tr do
+            td attribute[:label].to_s
+            td do
+              a attribute[:attribute].to_s, :href => "/attribute?uri=" + URI.escape(attribute[:attribute].to_s,"/:#")
+            end
+          end
+        end
+      end
+    end
+  end
+end

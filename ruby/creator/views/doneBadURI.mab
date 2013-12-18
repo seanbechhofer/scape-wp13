@@ -1,0 +1,141 @@
+div.container do
+  div.row do
+    div :class => 'col-md-12' do
+      h2 "Selection"
+      
+      form :action => "insert", :class => "form" do 
+        div.message do
+          p url + " in use: please change!"
+          input :type => "text", :name => "url", :value => url, :size => "80"
+          button "Insert", :type => "submit", :class => "btn btn-primary"
+
+          input :type => "hidden", :name => "preservationCase", :value => preservationCase
+          input :type => "hidden", :name => "category", :value => category
+          input :type => "hidden", :name => "categoryLabel", :value => categoryLabel
+          input :type => "hidden", :name => "attribute", :value => attribute
+          input :type => "hidden", :name => "attributeLabel", :value => attributeLabel
+          input :type => "hidden", :name => "scale", :value => scale
+          input :type => "hidden", :name => "scaleLabel", :value => scaleLabel
+          input :type => "hidden", :name => "type", :value => type
+          input :type => "hidden", :name => "typeLabel", :value => typeLabel
+          input :type => "hidden", :name => "measure", :value => measure
+          input :type => "hidden", :name => "measureLabel", :value => measureLabel
+          input :type => "hidden", :name => "modality", :value => modality
+          input :type => "hidden", :name => "modalityLabel", :value => modalityLabel
+          input :type => "hidden", :name => "qualifier", :value => qualifier
+          input :type => "hidden", :name => "qualifierLabel", :value => qualifierLabel
+          input :type => "hidden", :name => "guidance", :value => guidance
+          input :type => "hidden", :name => "guidanceLabel", :value => guidanceLabel
+          input :type => "hidden", :name => "value", :value => value
+          input :type => "hidden", :name => "validFrom", :value => validity["from"]
+          input :type => "hidden", :name => "validTo", :value => validity["to"]
+          input :type => "hidden", :name => "rdf", :value => rdf
+        end
+
+      h2 "Selection"
+
+      div do
+        p :class => "text-primary lead" do
+          span url 
+          span "[" + typeLabel + "]"
+        end
+        p :class => "lead text-center" do
+          span measureLabel
+          span modalityLabel
+          span "be"
+          span qualifierLabel
+          span value
+        end
+      end
+    end
+  end
+  div.row do
+    div :class => 'col-md-12' do
+      h3 "RDF"
+      pre.rdf rdf
+    end
+  end
+  div.row do    
+    div :class => 'col-md-12' do
+      h3 "Details"
+    end
+    div :class => 'col-md-11' do
+      table :class => "table table-striped table-condensed" do
+        tr do
+          th "Facet"
+          th "Value"
+          th "URI"
+        end
+        tr do
+          td "Preservation Case: "
+        td ""
+        td preservationCase
+      end
+      tr do
+        td "Objective: "
+        td ""
+        td url.to_s
+      end
+      tr do
+        td "Type: " 
+        td typeLabel 
+        td type
+      end
+      tr do
+        td "Category: "
+        td categoryLabel 
+        td category 
+      end
+      tr do
+        td "Guidance Policy: " 
+        td guidanceLabel
+        td guidance
+      end
+      tr do
+        td "Attribute: "
+        td attributeLabel 
+        td attribute 
+      end
+      tr do
+        td "Measure: " 
+        td measureLabel 
+        td measure
+      end
+      tr do
+        td "Scale: " 
+        td scaleLabel
+        td scale
+      end
+      tr do
+        td "Modality: " 
+        td modalityLabel
+        td modality
+      end
+      tr do
+        td "Qualifier: " 
+        td qualifierLabel
+        td qualifier
+      end
+      tr do
+        td "Value: " 
+        td value
+        td ""
+      end
+      tr do
+        td "Valid From: "
+        td validity["from"]
+        td ""
+      end
+      tr do
+        td "Valid To: " 
+        td validity["to"]
+        td ""
+      end
+        end
+      end
+      div :class => 'col-md-1' do
+      end
+    end
+  end
+end
+

@@ -1,0 +1,30 @@
+div.container do
+  div.row do
+    div :class => "col-md-12" do 
+      h2 do
+        "Category: " + details[0][:label].to_s
+      end
+
+      p.lead do 
+        a category.to_s, :href => category.to_s
+      end
+    end
+  end
+  div.row do
+    div :class => "col-md-12" do 
+
+      h2 "Sub Categories"
+      
+      table :class => "table table-striped table-condensed" do
+        subcategories.each do |subcategory|
+          tr do
+            td subcategory[:label].to_s
+            td do
+              a subcategory[:criterioncategory].to_s, :href => "/criterioncategory?uri=" + URI.escape(subcategory[:criterioncategory].to_s,"/:#")
+            end
+          end
+        end # table
+      end
+    end
+  end
+end

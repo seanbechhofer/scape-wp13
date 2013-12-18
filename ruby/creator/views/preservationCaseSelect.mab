@@ -1,0 +1,64 @@
+div.container do
+  div.row do
+    div :class => 'col-md-12' do
+
+      h2 "Preservation Case"
+      
+      form :action => "objective", :class => "form-horizontal" do 
+        
+        div "class" => "form-group" do
+          label "Existing Case", :class => "col-md-2 control-label"
+          div :class => "col-md-9" do
+            select :class => "form-control", :name=> "preservationCase" do
+              preservationCases.each do |preservationCase|
+                name = preservationCase[:name].to_s
+                if !name then
+                  name =""
+                end
+                option name + " (" + preservationCase[:preservationCase] + ")", :value => preservationCase[:preservationCase].to_s
+              end
+            end
+          end
+          div :class=> "col-md-1" do
+            button "Go", :type => "submit", :class => "btn btn-primary"
+          end
+        end
+      end
+    end
+  end
+  form :action => "createPreservationCase", :class => "form" do 
+    div.row do
+      div :class => "col-md-2" do
+        label "New Case", :class => "control-label"
+      end
+      div :class => "col-md-5" do
+        input :class => "form-control", :name=> "preservationCase", :type => "text"
+      end
+      div :class => "col-md-1" do
+        label "Name", :class => "control-label"
+      end
+      div :class => "col-md-3" do
+        input :class => "form-control", :name=> "name", :type => "text"
+      end
+      div :class=> "col-md-1" do
+        button "Create", :type => "submit", :class => "btn btn-success" 
+      end
+    end
+    div.row do
+      div :class => "col-md-2" do
+        label "Content Set", :class => "control-label"
+      end
+      div :class => "col-md-5" do
+        input :class => "form-control", :name=> "contentSet", :type => "text"
+      end
+    end
+    div.row do
+      div :class => "col-md-2" do
+        label "Community", :class => "control-label"
+      end
+      div :class => "col-md-5" do
+        input :class => "form-control", :name=> "userCommunity", :type => "text"
+      end
+    end
+  end
+end

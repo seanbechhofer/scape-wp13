@@ -1,0 +1,79 @@
+
+div.container do
+  div.row do
+    div :class => "col-md-12" do 
+      h2 "Preservation Case"
+      p.lead do 
+        span preservationCase.to_s
+      end
+    end
+  end
+  div.row do
+    div :class => "col-md-12" do 
+      h3 "Content Set and User Community"
+        
+      results.each do |result|
+          table :class => "table table-striped table-condensed" do
+            tr do
+              td.content "Content Set:" 
+              td do
+                a result[:content].to_s, :href => "/content-set?uri=" + URI.escape(result[:content].to_s, "/:#")
+              end
+            end
+            tr do
+              td.users "User Community:"
+              td result[:users].to_s
+            end
+          end
+      end
+    end
+  end
+  div.row do
+    div :class => "col-md-12" do 
+      h3 "Objectives"
+      
+      objectives.each do |objective|
+        div do
+          p.lead {a objective[:objective], :href => "/objective?uri=" + URI.escape(objective[:objective].to_s,"/:#")}
+          div :class => "" do
+
+            table :class => "table table-striped table-condensed" do
+              thead do
+                th "Attribute", :style => "text-align:left;width:50%" 
+                th "Value", :style => "text-align:left;width:50%" 
+              end
+              tr do
+                td "Type"
+                td objective[:type].to_s
+              end
+              tr do
+                td "Measure"
+                td do 
+                  a objective[:property].to_s, :href => "/measure?uri=" + URI.escape(objective[:prop].to_s,"/:#")
+                end
+              end
+              tr do
+                td "Modality"
+                td objective[:modality].to_s
+              end
+              tr do
+                td "Qualifier"
+                td objective[:qualifier].to_s
+              end
+              tr do
+                td "Value"
+                td objective[:value].to_s
+              end
+              tr do
+                td "Scope"
+                td do
+                  a objective[:scope].to_s, :href => "/content-set?uri=" + URI.escape(objective[:scope].to_s,"/:#")
+                end
+              end
+            end # table
+          end
+        end
+      end
+    end
+  end
+end

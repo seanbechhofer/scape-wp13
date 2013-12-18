@@ -1,0 +1,156 @@
+# This is a bit of a hack. 
+# Selection based on the scale
+def valueSelector(scale,restriction)
+  div :class => "col-md-3" do
+    
+    if scale.to_s.eql?("http://purl.org/DP/quality/scales#BOOLEAN") then
+      select :name => "value", :class => "form-control" do
+        option "True", :value => "true"
+        option "False", :value => "false"
+      end
+    elsif scale.to_s.eql?("http://purl.org/DP/quality/scales#ORDINAL") then
+      if restriction[0][:restriction] then     
+        select :name => "value", :class => "form-control" do
+          restriction[0][:restriction].to_s.split("/").each do |opt|
+            option opt, :value => opt
+          end
+        end
+      else
+        input :type => "text", :name => "value", :value => "--value--", :size => "40", :class => "form-control"
+      end
+    else
+      input :type => "text", :name => "value", :value => "--value--", :size => "40", :class => "form-control"
+    end
+  end
+end
+
+div.container do
+  div.row do
+    div :class => 'col-md-12' do
+      h2 "Details" 
+      table :class => "table table-striped table-condensed" do
+        tr do
+          th "Facet"
+          th "Value"
+          th "URI"
+        end
+        tr do
+          td "Preservation Case:"
+          td 
+          td preservationCase, :class => "text-muted"  
+        end
+        tr do
+          td "Category:"
+          td categoryLabel
+          td category, :class => "text-muted"
+        end
+        tr do
+          td "Attribute:"
+          td attributeLabel
+          td attribute, :class => "text-muted"
+        end
+        tr do
+          td "Measure:"
+          td measureLabel
+          td measure, :class => "text-muted"
+        end
+        tr do 
+          td "Scale:"
+          td scale[0][:label].to_s
+          td scale[0][:scale].to_s, :class => "text-muted"
+        end
+      end
+    end
+  end
+
+  form :action => "details", :class => "form" do
+    input :type => "hidden", :name => "preservationCase", :value => preservationCase
+    input :type => "hidden", :name => "category", :value => category
+    input :type => "hidden", :name => "attribute", :value => attribute
+    input :type => "hidden", :name => "measure", :value => measure
+    input :type => "hidden", :name => "scale", :value => scale[0][:scale]
+    div.row do
+      div :class => "col-md-3" do
+        span measureLabel, :class => "form-control"  
+      end
+      div :class => "col-md-3" do
+        select :name=> "modality", :class => "form-control" do
+          modalities.each do |modality|
+            option modality[:label].to_s, :value => modality[:modality].to_s
+          end
+        end
+      end
+      div :class => "col-md-3" do
+        select :name=> "qualifier", :class => "form-control" do
+          qualifiers.each do |qualifier|
+            option qualifier[:label].to_s, :value => qualifier[:qual].to_s
+          end
+        end
+      end
+      valueSelector(scale[0][:scale],restriction)
+    end
+    div.row do
+      div :class => "col-md-3" do
+        span "Type:", :class => "form-control"
+      end
+      div :class => "col-md-9" do
+        select :name=> "type", :class => "form-control" do
+          objectives.each do |objective|
+            #          option objective[:label].to_s, :value => objective[:objective].to_s 
+            option objective[:objective].to_s, :value => objective[:objective].to_s
+          end
+        end
+      end
+    end
+    div.row do
+      div :class => "col-md-3" do
+        span "Guidance Policy Area:", :class => "form-control"
+      end
+      div :class => "col-md-9" do
+        select :name=> "guidance", :class => "form-control" do
+          option "NONE", :value => "NONE"
+          guidances.each do |guidance|
+            option guidance[:label].to_s, :value => guidance[:guidance].to_s
+          end
+        end
+      end
+    end
+    div.row do
+      div :class => "col-md-2" do
+        span "Valid from:", :class => "form-control"  
+      end
+      div :class => "col-md-1" do
+        input :type => "checkbox", :name => "vFrom", :value => "yes", :class => "form-control"
+      end
+      div :class => "col-md-9" do
+        input :type => "text", :name => "validFrom", :size => "80", :class => "form-control"
+      end
+    end
+    div.row do
+      div :class => "col-md-2" do
+        span "Valid to:", :class => "form-control"  
+      end
+      div :class => "col-md-1" do
+        input :type => "checkbox", :name => "vTo", :value => "yes", :class => "form-control"
+      end
+      div :class => "col-md-9" do
+        input :type => "text", :name => "validTo", :size => "80", :class => "form-control"
+      end
+    end
+        
+        pcBits = preservationCase.split('#')
+        pcContext = pcBits[0] 
+    div.row do 
+      div :class => "col-md-3" do
+      span "URL:", :class => "form-control"  
+      end
+      div :class => "col-md-8" do
+      input :type => "text", :name => "url", :value => (pcContext + "#NAME"), :size => "80", :class => "form-control"  
+      end
+      div :class => "col-md-1" do
+        button "Go!", :type => "submit", :class => "btn btn-primary"
+      end
+    end
+  end
+end
+  
